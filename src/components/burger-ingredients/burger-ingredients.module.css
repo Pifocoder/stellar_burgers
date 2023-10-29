@@ -1,0 +1,37 @@
+.burger_ingredients {
+    width: 600px;
+}
+.types_conteiner {
+    display: grid;
+    grid-template-columns: auto;
+    grid-row-gap: 40px;
+    max-height: 900px;
+    overflow-y: scroll;
+}
+@media screen and (max-height: 1280px) {
+    .types_conteiner {
+        max-height: 750px;
+    }
+}
+@media screen and (max-height: 1080px) {
+    .types_conteiner {
+        max-height: 600px;
+    }
+}
+@media screen and (max-height: 900px) {
+    .types_conteiner {
+        max-height: 400px;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .types_conteiner {
+        max-height: 300px;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    .types_conteiner {
+        max-height: 200px;
+    }
+}

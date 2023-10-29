@@ -1,0 +1,15 @@
+.card {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto;
+    grid-row-gap: 4px;
+    position: relative;
+}
+.card_price {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+}
+.card__title {
+    text-align: center;
+}

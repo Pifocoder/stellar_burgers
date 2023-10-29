@@ -1,0 +1,6 @@
+.order_price {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 8px;
+    align-items: center;
+}
