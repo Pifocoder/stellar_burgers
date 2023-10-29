@@ -2,13 +2,14 @@ import styles from "./order-details.module.css";
 import React from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ReactComponent as OrderDone } from "../../images/done.svg";
+import ModalOverlay from "../modal-overlay/modal-overlay";
 function OrderDetails({ show, close }) {
   if (!show) {
     return null;
   }
   return (
     <>
-      <div className={styles.overlay}></div>
+      <ModalOverlay/>
       <section className={styles.order_modal}>
         <section className={styles.order_modal__cross} onClick={close}>
           <CloseIcon type="primary" />

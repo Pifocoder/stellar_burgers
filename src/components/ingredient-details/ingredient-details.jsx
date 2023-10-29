@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ingredient-details.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import NutritionValue from "./nutrition-value/nutrition-value";
-
+import ModalOverlay from "../modal-overlay/modal-overlay"
 const nutritionDict = [
   {
     tag: "proteins",
@@ -32,7 +32,7 @@ function IngredientDetails({ ingredient, show, close }) {
   }
   return (
     <>
-      <div className={styles.overlay}></div>
+      <ModalOverlay/>
       <section className={styles.ingredient_details}>
         <section className={styles.header + " mt-10 ml-10 mr-10"}>
           <h2 className={"text text_type_main-large " + styles.title}>
