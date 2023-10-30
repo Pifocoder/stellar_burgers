@@ -11,7 +11,12 @@ function App() {
     const [ingredients, setIngredients] = React.useState([{}])
     React.useEffect(() => {
         fetch(apiUrl)
-        .then((resp) => resp.json())
+        .then((resp) => {
+            if (resp.ok) {
+                return resp.json();
+            }
+            return Promise.reject(`Ошибка ${resp.status}`);
+        })
         .then((data) => {
            setIngredients(data.data)
            setIsLoaded(true)
@@ -21,7 +26,7 @@ function App() {
         })
     }, [])
 
-    if (error) {
+    if (error != null) {
         return (<p>Ошибка: {error}</p>);
     } else if (!isLoaded) {
         return (<p>Загрузка</p>)

@@ -1,42 +1,17 @@
 .ingredient_details {
-    display: block;
     justify-content: center;
     text-align: center;
-    position: absolute;
-    left: calc(50% - 720px / 2);
-    top: calc(50% - 718px / 2);
-    background: rgba(19, 19, 22, 1);
-    width: 720px;
-    height: 539px; 
-    border-radius: 40px;
-    z-index: 2;
-}
-.header {
-    display: grid;
-    grid-template-columns: auto max-content;
 }
 .body {
     display: grid;
     grid-template-columns: auto;
     justify-content: center;
 }
-.ingredient_details__cross {
-    cursor: pointer;
+.title {
+    text-align: left;
 }
 .ingredient__nutrition_values {
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-column-gap: 20px;
-}
-.overlay {
-    position: absolute;
-    z-index: 1;
-    left: -10px;
-    top: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: rgba(0,0,0,5);
-    opacity: 60%;
-    height: calc(max(100vh, 718px));
-    width: 100%;
 }

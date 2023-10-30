@@ -1,8 +1,14 @@
 import React from "react";
 import styles from "./burger-ingredients.module.css";
 import BurgerIngredientsTab from "./tab/tab";
-import Type from "./type/type";
+import IngredientsList from "./ingredients-list/ingredients-list";
+import PropTypes from "prop-types";
 
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string.isRequired,
+  })),
+};
 function BurgerIngredients({ ingredients }) {
   return (
     <section className={styles.burger_ingredients}>
@@ -13,19 +19,19 @@ function BurgerIngredients({ ingredients }) {
         <BurgerIngredientsTab />
       </section>
       <section className={"mt-10 " + styles.types_conteiner}>
-        <Type
+        <IngredientsList
           title="Булки"
           ingredients={ingredients.filter(function (ingredient) {
             return ingredient.type === "bun";
           })}
         />
-        <Type
+        <IngredientsList
           title="Соусы"
           ingredients={ingredients.filter(function (ingredient) {
             return ingredient.type === "sauce";
           })}
         />
-        <Type
+        <IngredientsList
           title="Начинки"
           ingredients={ingredients.filter(function (ingredient) {
             return ingredient.type === "main";

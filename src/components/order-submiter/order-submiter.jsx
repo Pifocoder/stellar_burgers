@@ -4,12 +4,14 @@ import OrderPrice from "../order-price/order-price";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderModal from "../order-details/order-details";
 import Modal from "../modal/modal";
+import PropTypes from "prop-types";
+import { useModal } from "../../hooks/useModal";
+OrderSubmiter.propTypes = {
+  orderPrice: PropTypes.number.isRequired,
+};
 function OrderSubmiter({ orderPrice }) {
-  const [showOrderModal, setShowOrderModal] = React.useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
-  const closeOrderDetails = () => {
-    setShowOrderModal(false)
-  }
   return (
     <section className={styles.order_submiter}>
       <OrderPrice orderPrice={orderPrice} />
@@ -17,13 +19,16 @@ function OrderSubmiter({ orderPrice }) {
         htmlType="button"
         type="primary"
         size="large"
-        onClick={() => setShowOrderModal(true)}
+        onClick={() => openModal()}
       >
         Оформить заказ
       </Button>
-        <Modal>
-          <OrderModal show={showOrderModal} close={closeOrderDetails}/>
+      
+      {isModalOpen && (
+        <Modal close_modal={closeModal}>
+          <OrderModal />
         </Modal>
+      )}
     </section>
   );
 }

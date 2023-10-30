@@ -7,7 +7,7 @@ import styles from "./app-header.module.css";
 
 function AppHeader() {
   return (
-    <nav className={styles.header}>
+    <header className={styles.header}>
       <section className={styles.header__item + " mt-4 mb-4"}>
         <div className={styles.header__button + " ml-5 mr-5"}>
           <BurgerIcon type="primary" />
@@ -37,7 +37,7 @@ function AppHeader() {
           </a>
         </div>
       </section>
-    </nav>
+    </header>
   );
 }
 

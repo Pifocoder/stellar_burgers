@@ -1,0 +1,19 @@
+.modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 720px;
+    border-radius: 40px;
+    background: rgba(19, 19, 22, 1);
+    z-index: 2;
+}
+.modal__body {
+    position: relative;
+}
+.modal__cross {
+    position: absolute;
+    right: 40px;
+    top: 60px;
+    cursor: pointer;
+}
