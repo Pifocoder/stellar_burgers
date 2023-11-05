@@ -1,0 +1,10 @@
+.nutrition_value {
+    display: grid;
+    grid-template-columns: auto;
+    grid-row-gap: 8px;
+
+    align-items: center;
+}
+.nutrition_text {
+    color: rgba(133, 133, 173, 1);
+}

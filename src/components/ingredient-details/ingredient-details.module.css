@@ -1,0 +1,17 @@
+.ingredient_details {
+    justify-content: center;
+    text-align: center;
+}
+.body {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+}
+.title {
+    text-align: left;
+}
+.ingredient__nutrition_values {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 20px;
+}

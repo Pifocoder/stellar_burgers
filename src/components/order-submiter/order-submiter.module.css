@@ -1,0 +1,7 @@
+.order_submiter {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-column-gap: 40px;
+    align-items: center;
+    justify-content: end;
+}
