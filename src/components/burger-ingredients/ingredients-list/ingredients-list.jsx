@@ -2,15 +2,10 @@ import React from 'react';
 import styles from './ingredients-list.module.css';
 import Card from './card/card'
 import PropTypes from "prop-types";
-
+import ingredientType from '../../../utils/type';
 IngredientsList.propTypes = {
     title : PropTypes.string,
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-      _id : PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-    })),
+    ingredients: PropTypes.arrayOf(ingredientType),
   };
 function IngredientsList({title, ingredients}) {
     return (
@@ -24,5 +19,7 @@ function IngredientsList({title, ingredients}) {
         </section>
     );
 }
-
+Card.propTypes = {
+    ingredient: ingredientType
+  };
 export default IngredientsList;

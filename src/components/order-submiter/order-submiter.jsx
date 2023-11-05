@@ -6,9 +6,7 @@ import OrderModal from "../order-details/order-details";
 import Modal from "../modal/modal";
 import PropTypes from "prop-types";
 import { useModal } from "../../hooks/useModal";
-OrderSubmiter.propTypes = {
-  orderPrice: PropTypes.number.isRequired,
-};
+
 function OrderSubmiter({ orderPrice }) {
   const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -25,12 +23,14 @@ function OrderSubmiter({ orderPrice }) {
       </Button>
       
       {isModalOpen && (
-        <Modal close_modal={closeModal}>
+        <Modal closeModal={closeModal}>
           <OrderModal />
         </Modal>
       )}
     </section>
   );
 }
-
+OrderSubmiter.propTypes = {
+  orderPrice: PropTypes.number.isRequired,
+};
 export default OrderSubmiter;

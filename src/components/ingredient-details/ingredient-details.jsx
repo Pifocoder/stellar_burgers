@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ingredient-details.module.css";
 import NutritionValue from "./nutrition-value/nutrition-value";
 import PropTypes from "prop-types";
+import ingredientType from "../../utils/type";
 const nutritionDict = [
   {
     tag: "proteins",
@@ -25,18 +26,7 @@ const nutritionDict = [
   },
 ];
 
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-  }),
-};
+
 function IngredientDetails({ ingredient }) {
   return (
     <section className={styles.ingredient_details}>
@@ -72,4 +62,7 @@ function IngredientDetails({ ingredient }) {
     </section>
   );
 }
+IngredientDetails.propTypes = {
+  ingredient: ingredientType,
+};
 export default IngredientDetails;

@@ -3,12 +3,8 @@ import styles from "./burger-ingredients.module.css";
 import BurgerIngredientsTab from "./tab/tab";
 import IngredientsList from "./ingredients-list/ingredients-list";
 import PropTypes from "prop-types";
+import ingredientType from "../../utils/type";
 
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string.isRequired,
-  })),
-};
 function BurgerIngredients({ ingredients }) {
   return (
     <section className={styles.burger_ingredients}>
@@ -41,5 +37,7 @@ function BurgerIngredients({ ingredients }) {
     </section>
   );
 }
-
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientType),
+};
 export default BurgerIngredients;

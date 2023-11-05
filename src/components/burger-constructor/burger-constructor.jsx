@@ -4,15 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import OrderSubmiter from "../order-submiter/order-submiter";
 import MiddleIngredient from "./middle-ingredient/middle-ingredient";
 import PropTypes from "prop-types";
-
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape({
-    _id : PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-  })),
-};
+import ingredientType from "../../utils/type";
 
 function BurgerConstructor({ ingredients }) {
   const [orderPrice, setOrderPrice] = React.useState(0);
@@ -29,27 +21,30 @@ function BurgerConstructor({ ingredients }) {
       <section
         className={styles.burger_constructor__list_ingredients + " mt-25"}
       >
-        {ingredients.map(function (ingredient, index) {
-          if (index === 0) {
-            return (
-              <div className="ml-8" key={ingredient._id}>
-                <ConstructorElement
-                  type="top"
-                  isLocked={true}
-                  text={ingredient.name + " (верх)"}
-                  price={ingredient.price}
-                  thumbnail={ingredient.image}
-                />
-              </div>
-            );
-          }
-          return (
-            <MiddleIngredient key={ingredient._id} ingredient={ingredient} />
-          );
-        })}
-        <div className="ml-8" key={ingredients[0]._id}>
+        <div className="ml-8">
           <ConstructorElement
-            type="down"
+            type="top"
+            isLocked={true}
+            text={ingredients[0].name + " (верх)"}
+            price={ingredients[0].price}
+            thumbnail={ingredients[0].image}
+          />
+        </div>
+        <section className={styles.middle_ingredients_container}>
+          {ingredients.map(function (ingredient, index) {
+            if (index > 0) {
+              return (
+                <MiddleIngredient
+                  key={ingredient._id}
+                  ingredient={ingredient}
+                />
+              );
+            }
+          })}
+        </section>
+        <div className="ml-8" >
+          <ConstructorElement
+            type="bottom"
             isLocked={true}
             text={ingredients[0].name + " (низ)"}
             price={ingredients[0].price}
@@ -63,5 +58,8 @@ function BurgerConstructor({ ingredients }) {
     </section>
   );
 }
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientType),
+};
 
 export default BurgerConstructor;

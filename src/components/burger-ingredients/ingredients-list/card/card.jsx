@@ -8,14 +8,8 @@ import Modal from "../../../modal/modal";
 import IngredientDetails from "../../../ingredient-details/ingredient-details";
 import { useModal } from "../../../../hooks/useModal";
 import PropTypes from "prop-types";
+import ingredientType from "../../../../utils/type";
 
-Card.propTypes = {
-  ingredient: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-  }),
-};
 function Card({ ingredient }) {
   const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -36,7 +30,7 @@ function Card({ ingredient }) {
         </p>
       </section>
       {isModalOpen && (
-        <Modal close_modal={closeModal}>
+        <Modal closeModal={closeModal}>
           <IngredientDetails
             ingredient={ingredient}
           />
@@ -45,5 +39,7 @@ function Card({ ingredient }) {
     </>
   );
 }
-
+Card.propTypes = {
+  ingredient: ingredientType
+};
 export default Card;
