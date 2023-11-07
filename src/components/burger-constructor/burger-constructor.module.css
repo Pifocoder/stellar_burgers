@@ -1,10 +1,16 @@
 .burger_constructor {
     width: 600px;
+    display: grid;
+    grid-template-rows: auto min-content;
 }
 .burger_constructor__list_ingredients {
     display: grid;
     grid-template-columns: auto;
     grid-row-gap: 16px;
+    grid-template-rows: max-content max-content max-content;
+}
+.burger_constructor__list_ingredients_hover {
+    opacity: 0.6;
 }
 .middle_ingredients_container {
     display: grid;

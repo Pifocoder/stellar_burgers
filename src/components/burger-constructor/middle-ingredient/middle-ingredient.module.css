@@ -1,6 +1,13 @@
 .ingredient {
-    display: grid;
-    grid-template-columns: max-content auto;
-    align-items: center;
-    grid-column-gap: 4px;
+  display: grid;
+  grid-template-columns: max-content auto;
+  align-items: center;
+  grid-column-gap: 4px;
+}
+
+.display {
+    display: none;
+}
+.hover {
+    opacity: 0.6;
 }
