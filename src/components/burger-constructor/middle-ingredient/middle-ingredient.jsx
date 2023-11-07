@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import ingredientType from "../../../utils/type";
-import { moveIngredient, removeIngredient } from "../../../services/actions/constructor_ingredients_list";
+import { moveIngredient, removeIngredient } from "../../../services/actions/constructorIngredientsList";
 import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
 import { useRef } from "react";
@@ -40,7 +40,7 @@ function MiddleIngredient({ ingredient, id }) {
       <DragIcon type="primary" />
       <ConstructorElement
         handleClose={() =>
-          dispatch({ type: "REMOVE_INGREDIENT", ingredient, id })
+          dispatch(removeIngredient(ingredient, id))
         }
         text={ingredient.name}
         price={ingredient.price}

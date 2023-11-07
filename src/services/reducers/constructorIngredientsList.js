@@ -1,10 +1,10 @@
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  topBottomType,
   MOVE_INGREDIENT,
-} from "../../constants";
-import ingredientDetails from "./ingredient_details";
+} from "../actionTypes";
+import ingredientDetails from "./ingredientDetails";
+import { TOP_BOTTOM_TYPE } from "../../constants";
 const initialState = {
   ingredients: [],
   price: 0,
@@ -14,7 +14,7 @@ const initialState = {
 const constructorIngredients = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
-      if (action.ingredient.type != topBottomType) {
+      if (action.ingredient.type != TOP_BOTTOM_TYPE) {
         state.counts.set(
           action.ingredient._id,
           typeof state.counts.get(action.ingredient._id) === "undefined"
@@ -49,7 +49,7 @@ const constructorIngredients = (state = initialState, action) => {
         capacity: state.capacity + 1,
       };
     case REMOVE_INGREDIENT:
-      if (action.ingredient.type != topBottomType) {
+      if (action.ingredient.type != TOP_BOTTOM_TYPE) {
         state.counts.set(
           action.ingredient._id,
           state.counts.get(action.ingredient._id) - 1

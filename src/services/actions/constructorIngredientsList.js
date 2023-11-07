@@ -2,7 +2,7 @@ import {
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
   REMOVE_INGREDIENT,
-} from "../../constants";
+} from "../actionTypes";
 export function addIngredient(ingredient) {
   return { type: ADD_INGREDIENT, ingredient: ingredient };
 }

@@ -9,7 +9,7 @@ IngredientsList.propTypes = {
   ingredientsType: PropTypes.string.isRequired,
 };
 function IngredientsList({ title, ingredientsType }) {
-  const ingredients = useSelector((store) => store.ingredientsList);
+  const { ingredients } = useSelector((store) => store.ingredientsList);
   const constructorIngredients = useSelector(
     (store) => store.constructorIngredients
   );

@@ -6,14 +6,14 @@ import MiddleIngredient from "./middle-ingredient/middle-ingredient";
 import PropTypes from "prop-types";
 import ingredientType from "../../utils/type";
 import { useSelector } from "react-redux";
-import constructorIngredients from "../../services/reducers/constructor_ingredients_list";
+import constructorIngredients from "../../services/reducers/constructorIngredientsList";
 import { useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
   addIngredient,
   removeIngredient,
-} from "../../services/actions/constructor_ingredients_list";
-import { topBottomType } from "../../constants";
+} from "../../services/actions/constructorIngredientsList";
+import { TOP_BOTTOM_TYPE } from "../../constants";
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const constructorIngredients = useSelector(
@@ -26,9 +26,9 @@ function BurgerConstructor() {
     }),
     drop({ ingredient }) {
       if (
-        ingredient.type === topBottomType &&
+        ingredient.type === TOP_BOTTOM_TYPE &&
         constructorIngredients.ingredients.length > 0 &&
-        constructorIngredients.ingredients[0].ingredient.type === topBottomType
+        constructorIngredients.ingredients[0].ingredient.type === TOP_BOTTOM_TYPE
       ) {
         dispatch(
           removeIngredient(
@@ -55,7 +55,7 @@ function BurgerConstructor() {
         {constructorIngredients.ingredients.length > 0 && (
           <>
             {constructorIngredients.ingredients[0].ingredient.type ===
-              topBottomType && (
+              TOP_BOTTOM_TYPE && (
               <div className="ml-8">
                 <ConstructorElement
                   type="top"
@@ -73,7 +73,7 @@ function BurgerConstructor() {
             )}
             <section className={styles.middle_ingredients_container}>
               {constructorIngredients.ingredients.map(function (item) {
-                if (item.ingredient.type !== topBottomType) {
+                if (item.ingredient.type !== TOP_BOTTOM_TYPE) {
                   return (
                     <MiddleIngredient
                       ingredient={item.ingredient}
@@ -85,7 +85,7 @@ function BurgerConstructor() {
               })}
             </section>
             {constructorIngredients.ingredients[0].ingredient.type ===
-              topBottomType && (
+              TOP_BOTTOM_TYPE && (
               <div className="ml-8">
                 <ConstructorElement
                   type="bottom"

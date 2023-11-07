@@ -3,7 +3,7 @@ import styles from "./ingredient-details.module.css";
 import NutritionValue from "./nutrition-value/nutrition-value";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import ingredientDetails from "../../services/reducers/ingredient_details";
+import ingredientDetails from "../../services/reducers/ingredientDetails";
 
 const nutritionDict = [
   {

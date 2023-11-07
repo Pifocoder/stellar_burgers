@@ -1,4 +1,4 @@
-import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../../constants'
+import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../actionTypes'
 const initialState = [{
     open : false,
     ingredient : {}

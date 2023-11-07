@@ -5,14 +5,13 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderModal from "../order-details/order-details";
 import Modal from "../modal/modal";
 import PropTypes from "prop-types";
-import constructorIngredients from "../../services/reducers/constructor_ingredients_list";
+import constructorIngredients from "../../services/reducers/constructorIngredientsList";
 import { useDispatch, useSelector } from "react-redux";
 import {
   makeOrder,
-  openOrderModal,
   closeOrderModal,
 } from "../../services/actions/order";
-import { apiUrlOrders } from "../../constants";
+
 function OrderSubmiter() {
   const dispatch = useDispatch();
 
@@ -25,32 +24,11 @@ function OrderSubmiter() {
 
   const order = useSelector((store) => store.order);
   
-  const submit = () => {
-    fetch(apiUrlOrders, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        }
-        return Promise.reject(`Ошибка ${resp.status}`);
-      })
-      .then((data) => {
-        dispatch(makeOrder(data.order.number));
-        dispatch(openOrderModal());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   return (
+    
     <section className={styles.order_submiter}>
       <OrderPrice orderPrice={constructorIngredients.price} />
-      <Button htmlType="button" type="primary" size="large" onClick={submit}>
+      <Button htmlType="button" type="primary" size="large" onClick={() => dispatch(makeOrder(data))}>
         Оформить заказ
       </Button>
 

@@ -11,15 +11,18 @@ const modalRoot = document.getElementById("react-modals");
 function Modal({ closeModal, children }) {
   const modalRef = React.useRef(null);
   const dispatch = useDispatch();
+  const closePopup = () => {
+    dispatch(closeModal());
+  }
   React.useEffect(() => {
     const handleClick = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        dispatch(closeModal());
+        closePopup()
       }
     };
     const handleESC = (event) => {
       if (event.code == "Escape") {
-        dispatch(closeModal());
+        closePopup()
       }
     };
 
@@ -36,7 +39,7 @@ function Modal({ closeModal, children }) {
       <section className={styles.modal} ref={modalRef}>
         <section className={styles.modal__body}>
           <div className={styles.modal__cross}>
-            <CloseIcon type="primary" onClick={() => dispatch(closeModal())} />
+            <CloseIcon type="primary" onClick={closePopup} />
           </div>
           <>{children}</>
         </section>

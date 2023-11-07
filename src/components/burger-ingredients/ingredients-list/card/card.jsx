@@ -9,7 +9,7 @@ import IngredientDetails from "../../../ingredient-details/ingredient-details";
 import { useModal } from "../../../../hooks/useModal";
 import PropTypes from "prop-types";
 import ingredientType from "../../../../utils/type";
-import { openIngredientDetails } from "../../../../services/actions/ingredient_details";
+import { openIngredientDetails } from "../../../../services/actions/ingredientDetails";
 import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
 
