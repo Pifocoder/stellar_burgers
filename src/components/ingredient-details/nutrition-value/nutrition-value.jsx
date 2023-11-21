@@ -2,11 +2,6 @@ import styles from "./nutrition-value.module.css";
 import React from "react";
 
 import PropTypes from "prop-types";
-NutritionValue.propTypes = PropTypes.shape({
-  value: PropTypes.string.isRequired,
-  unit: PropTypes.string.isRequired,
-  unit_name: PropTypes.string.isRequired,
-});
 
 function NutritionValue({ value, unit, unit_name }) {
   return (
@@ -20,4 +15,11 @@ function NutritionValue({ value, unit, unit_name }) {
     </section>
   );
 }
+NutritionValue.propTypes = {
+  value : PropTypes.number.isRequired,
+  unit : PropTypes.string.isRequired,
+  unit_name : PropTypes.string.isRequired
+};
+
+
 export default NutritionValue;

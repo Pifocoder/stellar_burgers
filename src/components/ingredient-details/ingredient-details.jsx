@@ -2,6 +2,9 @@ import React from "react";
 import styles from "./ingredient-details.module.css";
 import NutritionValue from "./nutrition-value/nutrition-value";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import ingredientDetails from "../../services/reducers/ingredientDetails";
+
 const nutritionDict = [
   {
     tag: "proteins",
@@ -25,19 +28,9 @@ const nutritionDict = [
   },
 ];
 
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-  }),
-};
-function IngredientDetails({ ingredient }) {
+
+function IngredientDetails() {
+  const ingredientDetails = useSelector((store) => store.ingredientDetails)
   return (
     <section className={styles.ingredient_details}>
       <h2
@@ -50,20 +43,20 @@ function IngredientDetails({ ingredient }) {
       <section className={styles.body}>
         <img
           className={styles.image + " pl-5 pr-5"}
-          src={ingredient.image_large}
-          alt={ingredient.name}
+          src={ingredientDetails.ingredient.image_large}
+          alt={ingredientDetails.ingredient.name}
         />
-        <p className="text text_type_main-medium mt-4">{ingredient.name}</p>
+        <p className="text text_type_main-medium mt-4">{ingredientDetails.ingredient.name}</p>
         <section
           className={styles.ingredient__nutrition_values + " mt-8 pb-15"}
         >
           {nutritionDict.map(function (nutrition, index) {
             return (
               <NutritionValue
-                value={ingredient[nutrition.tag]}
+                value={ingredientDetails.ingredient[nutrition.tag]}
                 unit={nutrition.unit}
                 unit_name={nutrition.name}
-                key={ingredient._id + nutrition.tag + String(index)}
+                key={ingredientDetails.ingredient._id + nutrition.tag + String(index)}
               />
             );
           })}
@@ -72,4 +65,5 @@ function IngredientDetails({ ingredient }) {
     </section>
   );
 }
+
 export default IngredientDetails;

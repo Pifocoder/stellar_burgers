@@ -8,42 +8,42 @@ import Modal from "../../../modal/modal";
 import IngredientDetails from "../../../ingredient-details/ingredient-details";
 import { useModal } from "../../../../hooks/useModal";
 import PropTypes from "prop-types";
+import ingredientType from "../../../../utils/type";
+import { openIngredientDetails } from "../../../../services/actions/ingredientDetails";
+import { useDispatch } from "react-redux";
+import { useDrag } from "react-dnd";
 
-Card.propTypes = {
-  ingredient: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-  }),
-};
-function Card({ ingredient }) {
-  const { isModalOpen, openModal, closeModal } = useModal();
+function Card({ ingredient, count }) {
+  const dispatch = useDispatch();
+  const [{ isDrag }, drag] = useDrag({
+    type: "ingredient",
+    item: { ingredient },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
 
   return (
-    <>
-      <section
-        className={styles.card}
-        onClick={() => openModal()}
-      >
-        <Counter count={1} size="default" extraClass="m-1" />
-        <img src={ingredient.image} alt={ingredient.name} />
-        <section className={styles.card_price}>
-          <p className="text text_type_digits-default">{ingredient.price}</p>
-          <CurrencyIcon type="primary" />
-        </section>
-        <p className={"text text_type_main-default " + styles.card__title}>
-          {ingredient.name}
-        </p>
+    <section
+      ref={drag}
+      className={styles.card}
+      onClick={() => dispatch(openIngredientDetails(ingredient))}
+    >
+      {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
+
+      <img src={ingredient.image} alt={ingredient.name} />
+      <section className={styles.card_price}>
+        <p className="text text_type_digits-default">{ingredient.price}</p>
+        <CurrencyIcon type="primary" />
       </section>
-      {isModalOpen && (
-        <Modal close_modal={closeModal}>
-          <IngredientDetails
-            ingredient={ingredient}
-          />
-        </Modal>
-      )}
-    </>
+      <p className={"text text_type_main-default " + styles.card__title}>
+        {ingredient.name}
+      </p>
+    </section>
   );
 }
-
+Card.propTypes = {
+  ingredient: ingredientType,
+  count: PropTypes.number.isRequired,
+};
 export default Card;
