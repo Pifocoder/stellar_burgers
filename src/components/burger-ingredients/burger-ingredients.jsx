@@ -27,13 +27,13 @@ function BurgerIngredients() {
   );
 
   const handleScroll = () => {
-    let [minDist, border] = [scrollRef.current.scrollTop, 0];
+    let [minDist, border] = [scrollRef.current?.scrollTop, 0];
     for (let index = 0; index < boundaryScrolls.length; ++index) {
       if (
-        Math.abs(scrollRef.current.scrollTop - boundaryScrolls[index]) < minDist
+        Math.abs(scrollRef.current?.scrollTop - boundaryScrolls[index]) < minDist
       ) {
         minDist = Math.abs(
-          scrollRef.current.scrollTop - boundaryScrolls[index]
+          scrollRef.current?.scrollTop - boundaryScrolls[index]
         );
         border = index;
       }
@@ -41,8 +41,8 @@ function BurgerIngredients() {
     setActiveTab(border);
   };
   React.useEffect(() => {
-    scrollRef.current.addEventListener("scroll", handleScroll);
-    return () => scrollRef.current.removeEventListener("scroll", handleScroll);
+    scrollRef.current?.addEventListener("scroll", handleScroll);
+    return () => scrollRef.current?.removeEventListener("scroll", handleScroll);
   }, [ingredientsList.getIngredientsSuccess]);
 
   const ingredientDetails = useSelector((store) => store.ingredientDetails);
@@ -53,7 +53,7 @@ function BurgerIngredients() {
   } else {
     return (
       <>
-        <section className={styles.burger_ingredients}>
+        <section className={styles.burger_ingredients} >
           <section className="mt-10">
             <h2 className="text text_type_main-large">Соберите бургер</h2>
           </section>
