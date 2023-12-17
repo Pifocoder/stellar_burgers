@@ -11,26 +11,21 @@ import { getApiIngredients } from "../../services/actions/ingredientsList";
 import { closeIngredientDetails } from "../../services/actions/ingredientDetails";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const boundaryScrolls = [0, 250, 775];
 function BurgerIngredients() {
   const scrollRef = useRef(window);
   const [activeTab, setActiveTab] = React.useState(0);
-  const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    dispatch(getApiIngredients());
-  }, []);
 
-  const ingredientsList= useSelector(
-    (store) => store.ingredientsList
-  );
-
+  const ingredientsList = useSelector((store) => store.ingredientsList);
   const handleScroll = () => {
     let [minDist, border] = [scrollRef.current?.scrollTop, 0];
     for (let index = 0; index < boundaryScrolls.length; ++index) {
       if (
-        Math.abs(scrollRef.current?.scrollTop - boundaryScrolls[index]) < minDist
+        Math.abs(scrollRef.current?.scrollTop - boundaryScrolls[index]) <
+        minDist
       ) {
         minDist = Math.abs(
           scrollRef.current?.scrollTop - boundaryScrolls[index]
@@ -53,7 +48,7 @@ function BurgerIngredients() {
   } else {
     return (
       <>
-        <section className={styles.burger_ingredients} >
+        <section className={styles.burger_ingredients}>
           <section className="mt-10">
             <h2 className="text text_type_main-large">Соберите бургер</h2>
           </section>
@@ -69,11 +64,6 @@ function BurgerIngredients() {
             <IngredientsList title="Начинки" ingredientsType="main" />
           </section>
         </section>
-        {ingredientDetails.open && (
-          <Modal closeModal={closeIngredientDetails}>
-            <IngredientDetails />
-          </Modal>
-        )}
       </>
     );
   }

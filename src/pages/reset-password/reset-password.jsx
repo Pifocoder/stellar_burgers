@@ -22,52 +22,60 @@ export function ResetPasswordPage() {
   const [password, setPassword] = React.useState("");
   const [emailCode, setEmailCode] = React.useState("");
   React.useEffect(() => {
-    if (user.post_response_success) {
-      navigate("/login", { replace: true });
+    if (!user.forgot_password) {
+      navigate("/forgot-password", { replace: true });
     }
-  }, [user.post_response_success]);
+  }, [user.forgot_password]);
+  React.useEffect(() => {
+    if (user.reset_password) {
+      navigate("/", { replace: false });
+    }
+  }, [user.reset_password]);
   return (
     <div className={styles.app}>
-      <AppHeader />
       <main className={styles.body}>
         <div className={styles.body__content}>
-          <h2 className={styles.title}>Восстановление пароля</h2>
-          <PasswordInput
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            value={password}
-            name={"password"}
-            placeholder="Введите новый пароль"
-            extraClass="mt-6"
-          />
-          <Input
-            type={"text"}
-            placeholder="Введите код из письма"
-            onChange={(e) => {
-              setEmailCode(e.target.value);
-            }}
-            value={emailCode}
-            name={"email_code"}
-            size={"default"}
-            extraClass="mt-6"
-          />
-          <Button
-            htmlType="button"
-            type="primary"
-            size="medium"
-            extraClass="mt-6"
-            onClick={() => {
+          <form
+            className={styles.form}
+            onSubmit={() =>
               dispatch(
                 resetPassword({
                   password: password,
                   token: emailCode,
                 })
-              );
-            }}
+              )
+            }
           >
-            Сохранить
-          </Button>
+            <h2 className={styles.title}>Восстановление пароля</h2>
+            <PasswordInput
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              value={password}
+              name={"password"}
+              placeholder="Введите новый пароль"
+              extraClass="mt-6"
+            />
+            <Input
+              type={"text"}
+              placeholder="Введите код из письма"
+              onChange={(e) => {
+                setEmailCode(e.target.value);
+              }}
+              value={emailCode}
+              name={"email_code"}
+              size={"default"}
+              extraClass="mt-6"
+            />
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="medium"
+              extraClass="mt-6"
+            >
+              Сохранить
+            </Button>
+          </form>
           <p className="text text_type_main-default mt-20">
             Вспомнили пароль?{" "}
             <Link to="/login" className={styles.link}>

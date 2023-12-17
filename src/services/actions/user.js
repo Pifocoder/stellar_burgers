@@ -24,7 +24,7 @@ import {
 import { getCookie } from "../../utils/cookies";
 import checkResponse from "../../utils/response";
 export function forgotPassword(data) {
-  return function (dispatch) {
+  return async (dispatch) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_FORGOT_PASSWORD, {
       method: "POST",
@@ -50,7 +50,7 @@ export function forgotPassword(data) {
 }
 
 export function resetPassword(data) {
-  return function (dispatch) {
+  return async (dispatch) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_RESET_PASSWORD, {
       method: "POST",
@@ -75,7 +75,7 @@ export function resetPassword(data) {
   };
 }
 export function register(data) {
-  return function (dispatch) {
+  return async (dispatch) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_REGISTER, {
       method: "POST",
@@ -103,7 +103,7 @@ export function register(data) {
 }
 
 export function login(data) {
-  return function (dispatch) {
+  return async (dispatch) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_LOGIN, {
       method: "POST",
@@ -128,9 +128,40 @@ export function login(data) {
         dispatch({ type: POST_LOGIN_FAILED });
       });
   };
+} 
+function refreshToken() {
+  return async (dispatch) => {
+    await fetch(API_URL_TOKEN, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token: getCookie("refreshToken") }),
+    })
+      .then(checkResponse)
+      .then((data) => {
+        if (data.success) {
+          dispatch({
+            type: POST_TOKEN_SUCCESS,
+            accessToken: data.accessToken.split("Bearer ")[1],
+            refreshToken: data.refreshToken,
+          });
+        } else {
+          dispatch({
+            type: POST_TOKEN_FAILED,
+          });
+        }
+      })
+      .catch(() => {
+        dispatch({
+          type: POST_TOKEN_FAILED,
+        });
+      });
+  };
 }
 export function getUser() {
-  return function (dispatch) {
+  return async (dispatch) => {
+    await dispatch(refreshToken())
     dispatch({ type: POST_STARTED });
     fetch(API_URL_GET_USER, {
       method: "GET",
@@ -159,33 +190,34 @@ export function getUser() {
       });
   };
 }
-export function refreshToken() {
-  return function (dispatch) {
+export function updateUser(data) {
+  return async (dispatch) => {
+    await dispatch(refreshToken())
     dispatch({ type: POST_STARTED });
-    fetch(API_URL_TOKEN, {
-      method: "POST",
+    fetch(API_URL_GET_USER, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("accessToken"),
       },
-      body: JSON.stringify({ token: getCookie("refreshToken") }),
+      body: JSON.stringify(data),
     })
       .then(checkResponse)
       .then((data) => {
         if (data.success) {
           dispatch({
-            type: POST_TOKEN_SUCCESS,
-            accessToken: data.accessToken.split("Bearer ")[1],
-            refreshToken: data.refreshToken,
+            type: GET_USER_INFO_SUCCESS,
+            user: data.user,
           });
         } else {
           dispatch({
-            type: POST_TOKEN_FAILED,
+            type: GET_USER_INFO_FAILED,
           });
         }
       })
       .catch(() => {
         dispatch({
-          type: POST_TOKEN_FAILED,
+          type: GET_USER_INFO_FAILED,
         });
       });
   };

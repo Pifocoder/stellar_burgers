@@ -10,13 +10,16 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../services/actions/user";
-
+import { updateUser } from "../../services/actions/user";
 export function ProfilePage() {
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user.user);
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
-  const user = useSelector((store) => store.user)
+  const [changed, setChanged] = useState(false);
   return (
     <div className={styles.app}>
-      <AppHeader />
       <main className={styles.body}>
         <div className={styles.body__content}>
           <section className={styles.profile__info}>
@@ -76,9 +79,12 @@ export function ProfilePage() {
             <Input
               type={"text"}
               placeholder={"Имя"}
-              onChange={() => {}}
+              onChange={(e) => {
+                setChanged(true);
+                setName(e.target.value);
+              }}
               icon={"EditIcon"}
-              value={user.user.name}
+              value={name}
               name={"name"}
               error={false}
               onIconClick={() => {}}
@@ -88,9 +94,12 @@ export function ProfilePage() {
             <Input
               type={"text"}
               placeholder={"Логин"}
-              onChange={() => {}}
+              onChange={(e) => {
+                setChanged(true);
+                setEmail(e.target.value);
+              }}
               icon={"EditIcon"}
-              value={user.user.email}
+              value={email}
               name={"name"}
               error={false}
               onIconClick={() => {}}
@@ -102,8 +111,46 @@ export function ProfilePage() {
               name={"password"}
               icon={"EditIcon"}
               placeholder={"Пароль"}
-              onChange={(e) => setPassword(e.target.va)}
+              onChange={(e) => {
+                setChanged(true);
+                setPassword(e.target.value);
+              }}
             />
+
+            {changed && (
+              <section className={styles.profile__inputs__submit}>
+                <Button
+                  htmlType="button"
+                  type="secondary"
+                  size="medium"
+                  onClick={() => {
+                    setChanged(false);
+                    setEmail(user.email);
+                    setName(user.name);
+                    setPassword("");
+                  }}
+                >
+                  Отменить
+                </Button>
+                <Button
+                  htmlType="button"
+                  type="primary"
+                  size="medium"
+                  onClick={() => {
+                    dispatch(
+                      updateUser({
+                        email: email,
+                        name: name,
+                        password: password,
+                      })
+                    );
+                    setChanged(false);
+                  }}
+                >
+                  Сохранить
+                </Button>
+              </section>
+            )}
           </section>
         </div>
       </main>

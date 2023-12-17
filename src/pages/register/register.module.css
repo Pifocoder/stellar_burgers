@@ -1,6 +1,6 @@
 .body {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
 }
 .body__content {
   margin: auto;
@@ -11,6 +11,11 @@
   justify-items: center;
 }
 .link {
-    color: rgba(76, 76, 255, 1);
-    text-decoration: none;
+  color: rgba(76, 76, 255, 1);
+  text-decoration: none;
+}
+.form {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
 }

@@ -23,8 +23,9 @@ const initialState = {
   },
   post_response_success: false,
   post_response_failed: false,
-
-  accessToken: ""
+  forgot_password: false,
+  reset_password: true,
+  accessToken: "",
 };
 
 const user = (state = initialState, action) => {
@@ -34,30 +35,38 @@ const user = (state = initialState, action) => {
         ...state,
         post_response_success: false,
         post_response_failed: false,
-      }
+      };
     case POST_FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
         post_response_success: true,
         post_response_failed: false,
+        forgot_password : true,
+        reset_password: false,
       };
     case POST_FORGOT_PASSWORD_FAILED:
       return {
         ...state,
         post_response_failed: true,
         post_response_success: false,
+        forgot_password : false,
+        reset_password: false,
       };
     case POST_RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         post_response_success: true,
         post_response_failed: false,
+        forgot_password : true,
+        reset_password: true,
       };
     case POST_RESET_PASSWORD_FAILED:
       return {
         ...state,
         post_response_failed: true,
         post_response_success: false,
+        forgot_password : true,
+        reset_password: false,
       };
     case POST_REGISTER_SUCCESS:
       setCookie("accessToken", action.accessToken, {
@@ -69,7 +78,7 @@ const user = (state = initialState, action) => {
         isAuthenticated: true,
         post_response_success: true,
         post_response_failed: false,
-        accessToken : action.accessToken
+        accessToken: action.accessToken,
       };
     case POST_REGISTER_FAILED:
       return {
@@ -88,7 +97,7 @@ const user = (state = initialState, action) => {
         isAuthenticated: true,
         post_response_success: true,
         post_response_failed: false,
-        accessToken : action.accessToken
+        accessToken: action.accessToken,
       };
     case POST_LOGIN_FAILED:
       return {
@@ -127,7 +136,7 @@ const user = (state = initialState, action) => {
         isAuthenticated: true,
         post_response_failed: false,
         post_response_success: true,
-        accessToken : action.accessToken
+        accessToken: action.accessToken,
       };
     default:
       return state;

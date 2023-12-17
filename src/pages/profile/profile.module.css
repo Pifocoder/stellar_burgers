@@ -34,3 +34,8 @@
 .link_inactive {
     color: rgba(133, 133, 173, 1);
 }
+.profile__inputs__submit {
+    display: grid;
+    grid-template-columns: min-content min-content;
+    justify-content: end;
+}

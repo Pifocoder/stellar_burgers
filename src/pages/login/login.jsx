@@ -11,7 +11,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
- 
+
 import { validateEmail } from "../../utils/validate";
 import { useDispatch } from "react-redux";
 import { login } from "../../services/actions/user";
@@ -26,73 +26,88 @@ export function LoginPage() {
     error: "",
   });
   const [password, setPassword] = React.useState("");
-  const user = useSelector((store) => store.user)
+  const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   React.useEffect(() => {
     if (user.isAuthenticated) {
       navigate("/", { replace: true });
     }
   }, []);
+  React.useEffect(() => {
+    if (user.isAuthenticated) {
+      navigate("/", { replace: true });
+    }
+  }, [user.isAuthenticated]);
   return (
     <div className={styles.app}>
-      <AppHeader />
       <main className={styles.body}>
         <div className={styles.body__content}>
-          <h2 className={styles.title}>Вход</h2>
-          <Input
-            type={"text"}
-            placeholder="E-mail"
-            onChange={(e) => {
-              if (!validateEmail(e.target.value)) {
-                setEmailError({
-                  isError: true,
-                  error: "Неправильно введен e-mail",
-                });
-              } else {
-                setEmailError({
-                  isError: false,
-                  error: "",
-                });
-              }
-              setEmail(e.target.value);
-            }}
-            value={email}
-            name={"name"}
-            error={emailError.isError}
-            errorText={emailError.error}
-            size={"default"}
-            extraClass="mt-6"
-          />
-          <PasswordInput
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            value={password}
-            name={"password"}
-            placeholder="Пароль"
-            extraClass="mt-6"
-          />
-          <Button
-            htmlType="button"
-            type="primary"
-            size="medium"
-            extraClass="mt-6"
-            onClick={() => {
+          <form
+            className={styles.form}
+            onSubmit={() =>
               dispatch(
                 login({
                   email: email,
                   password: password,
                 })
-              );
-              navigate('/', { replace: false })
-            }}
+              )
+            }
           >
-            Вход
-          </Button>
+            <h2 className={styles.title}>Вход</h2>
+            <Input
+              type={"text"}
+              placeholder="E-mail"
+              onChange={(e) => {
+                if (!validateEmail(e.target.value)) {
+                  setEmailError({
+                    isError: true,
+                    error: "Неправильно введен e-mail",
+                  });
+                } else {
+                  setEmailError({
+                    isError: false,
+                    error: "",
+                  });
+                }
+                setEmail(e.target.value);
+              }}
+              value={email}
+              name={"name"}
+              error={emailError.isError}
+              errorText={emailError.error}
+              size={"default"}
+              extraClass="mt-6"
+            />
+            <PasswordInput
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              value={password}
+              name={"password"}
+              placeholder="Пароль"
+              extraClass="mt-6"
+            />
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="medium"
+              extraClass="mt-6"
+            >
+              Вход
+            </Button>
+          </form>
           <p className="text text_type_main-default mt-20">
-            Вы - новый пользователь? <Link to='/register' className={styles.link}>Зарегистрироваться</Link>
+            Вы - новый пользователь?{" "}
+            <Link to="/register" className={styles.link}>
+              Зарегистрироваться
+            </Link>
           </p>
-          <p className="text text_type_main-default mt-4">Забыли пароль? <Link to='/forgot-password' className={styles.link}>Восстановить пароль</Link></p>
+          <p className="text text_type_main-default mt-4">
+            Забыли пароль?{" "}
+            <Link to="/forgot-password" className={styles.link}>
+              Восстановить пароль
+            </Link>
+          </p>
         </div>
       </main>
     </div>

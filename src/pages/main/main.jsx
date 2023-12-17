@@ -10,7 +10,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 export function MainPage() {
   return (
     <div className={styles.app}>
-      <AppHeader />
+
       <main className={styles.body}>
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />

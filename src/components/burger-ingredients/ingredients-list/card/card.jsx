@@ -27,7 +27,6 @@ function Card({ ingredient, count }) {
     <section
       ref={drag}
       className={styles.card}
-      onClick={() => dispatch(openIngredientDetails(ingredient))}
     >
       {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
 
