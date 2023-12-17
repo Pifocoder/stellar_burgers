@@ -16,6 +16,5 @@ export const refreshTokenMiddleware = ({ dispatch, getState }) => next => action
     // dispatch(refreshToken());
     // let result;
     // result = next(action);
-    console.log("fuck")
     return next(action);
 }
