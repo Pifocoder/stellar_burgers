@@ -33,7 +33,7 @@ function OrderSubmiter() {
       </Button>
 
       {order.open_modal && (
-        <Modal closeModal={closeOrderModal}>
+        <Modal closeModal={closeOrderModal} title="">
           <OrderModal />
         </Modal>
       )}

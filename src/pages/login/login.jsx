@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 import { validateEmail } from "../../utils/validate";
 import { useDispatch } from "react-redux";
-import { login } from "../../services/actions/user";
+import { getUser, login } from "../../services/actions/user";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 export function LoginPage() {
@@ -36,6 +36,7 @@ export function LoginPage() {
   React.useEffect(() => {
     if (user.isAuthenticated) {
       navigate("/", { replace: true });
+      dispatch(getUser())
     }
   }, [user.isAuthenticated]);
   return (

@@ -79,6 +79,7 @@ const user = (state = initialState, action) => {
         post_response_success: true,
         post_response_failed: false,
         accessToken: action.accessToken,
+        user : action.user
       };
     case POST_REGISTER_FAILED:
       return {
@@ -98,6 +99,7 @@ const user = (state = initialState, action) => {
         post_response_success: true,
         post_response_failed: false,
         accessToken: action.accessToken,
+        user : action.user
       };
     case POST_LOGIN_FAILED:
       return {

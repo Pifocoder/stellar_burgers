@@ -91,6 +91,7 @@ export function register(data) {
             type: POST_REGISTER_SUCCESS,
             accessToken: data.accessToken.split("Bearer ")[1],
             refreshToken: data.refreshToken,
+            user: data.user
           });
         } else {
           dispatch({ type: POST_REGISTER_FAILED });
@@ -119,6 +120,7 @@ export function login(data) {
             type: POST_LOGIN_SUCCESS,
             accessToken: data.accessToken.split("Bearer ")[1],
             refreshToken: data.refreshToken,
+            user: data.user
           });
         } else {
           dispatch({ type: POST_LOGIN_FAILED });

@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { MainPage } from "../../pages/main/main";
 import { LoginPage } from "../../pages/login/login";
@@ -26,7 +27,7 @@ import { getApiIngredients } from "../../services/actions/ingredientsList";
 import AppHeader from "../app-header/app-header";
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user)
+  const user = useSelector((store) => store.user);
   const handleLoad = useCallback(() => {
     dispatch(getUser());
   }, [dispatch]);
@@ -36,10 +37,10 @@ function App() {
   }, []);
   React.useEffect(() => {
     handleLoad();
-  }, [handleLoad, user.isAuthenticated]);
+  }, [handleLoad]);
 
-  let location = useLocation();
-  let state = location.state;
+  const location = useLocation();
+  const state = location.state;
   return (
     <>
       <AppHeader />

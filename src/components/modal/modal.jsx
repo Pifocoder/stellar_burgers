@@ -9,24 +9,28 @@ import { useNavigate } from "react-router-dom";
 
 const modalRoot = document.getElementById("react-modals");
 
-function Modal({ title, children }) {
+function Modal({ title, closeModal, children }) {
   const modalRef = React.useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const closeModal = (event) => {
+  const handleCloseModal = (event) => {
     event.stopPropagation();
-    navigate(-1);
+    if (typeof closeModal === 'undefined') {
+      navigate(-1);
+    } else {
+      dispatch(closeModal());
+    }
   };
   React.useEffect(() => {
     const handleClick = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        closeModal(event);
+        handleCloseModal(event);
       }
     };
     const handleESC = (event) => {
       if (event.code == "Escape") {
-        closeModal(event);
+        handleCloseModal(event);
       }
     };
 
@@ -37,24 +41,25 @@ function Modal({ title, children }) {
       document.removeEventListener("keydown", handleESC);
     };
   }, []);
-  console.log("asd");
   return ReactDOM.createPortal(
     <>
       <ModalOverlay />
       <section className={styles.modal} ref={modalRef}>
         <section className={styles.modal__body}>
           <div className={styles.modal__cross}>
-            <CloseIcon type="primary" onClick={closeModal} />
+            <CloseIcon type="primary" onClick={handleCloseModal} />
           </div>
 
           <>
-            <h2
-              className={
-                "text text_type_main-large pt-10 pl-10 pr-10 " + styles.title
-              }
-            >
-              {title}
-            </h2>
+            {title != "" && (
+              <h2
+                className={
+                  "text text_type_main-large pt-10 pl-10 pr-10 " + styles.title
+                }
+              >
+                {title}
+              </h2>
+            )}
             {children}
           </>
         </section>
@@ -64,7 +69,8 @@ function Modal({ title, children }) {
   );
 }
 Modal.propTypes = {
-  title : PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  closeModal: PropTypes.func,
   children: PropTypes.element.isRequired,
 };
 export default Modal;
