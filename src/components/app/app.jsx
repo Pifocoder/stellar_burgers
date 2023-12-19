@@ -28,10 +28,9 @@ import AppHeader from "../app-header/app-header";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const handleLoad = useCallback(() => {
+  const handleLoad = useCallback(async () => {
     dispatch(getUser());
   }, [dispatch]);
-
   React.useEffect(() => {
     dispatch(getApiIngredients());
   }, []);
