@@ -1,3 +1,5 @@
+import ingredientType from "../utils/type";
+
 export const GET_API_INGREDIENTS_START = "GET_API_INGREDIENTS_START";
 export const GET_API_INGREDIENTS_SUCCESS = "GET_API_INGREDIENTS_SUCCESS";
 export const GET_API_INGREDIENTS_FAILED = "GET_API_INGREDIENTS_FAILED";
@@ -5,13 +7,27 @@ export const ADD_INGREDIENT_TO_ORDER = "ADD_INGREDIENT_TO_ORDER";
 export const REMOVE_INGREDIENT_FROM_ORDER = "REMOVE_INGREDIENT_FROM_ORDER";
 export const OPEN_INGREDIENT_DETAILS = "OPEN_INGREDIENT_DETAILS";
 export const CLOSE_INGREDIENT_DETAILS = "CLOSE_INGREDIENT_DETAILS";
+
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
+export interface actionAddIngredient {
+  type: "ADD_INGREDIENT";
+  ingredient: ingredientType;
+}
 export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
+export interface actionRemoveIngredient {
+  type: "REMOVE_INGREDIENT";
+  ingredient: ingredientType;
+}
+export const MOVE_INGREDIENT = "MOVE_INGREDIENT";
+export interface actionMoveIngredient {
+    type: "MOVE_INGREDIENT";
+    lastPositionId: number;
+    newPositionId : number;
+  }
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
 export const POST_ORDER_FAILED = "POST_ORDER_FAILED";
 export const OPEN_ORDER_MODAL = "OPEN_ORDER_MODAL";
 export const CLOSE_ORDER_MODAL = "CLOSE_ORDER_MODAL";
-export const MOVE_INGREDIENT = "MOVE_INGREDIENT";
 export const ACTIVATE_TAB = "ACTIVATE_TAB";
 export const POST_FORGOT_PASSWORD_SUCCESS = "POST_FORGOT_PASSWORD_SUCCESS";
 export const POST_FORGOT_PASSWORD_FAILED = "POST_FORGOT_PASSWORD_FAILED";

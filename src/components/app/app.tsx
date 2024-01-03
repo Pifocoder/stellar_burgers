@@ -14,20 +14,18 @@ import { ResetPasswordPage } from "../../pages/reset-password/reset-password";
 import { ProfilePage } from "../../pages/profile/profile";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { useDispatch, useSelector } from "react-redux";
-import { refreshToken } from "../../services/actions/user";
 import { getUser } from "../../services/actions/user";
-import { useCallback } from "react";
-import { Outlet } from "react-router-dom";
 import IngredientPage from "../../pages/ingredient/ingredient";
 import Modal from "../modal/modal";
-import { closeIngredientDetails } from "../../services/actions/ingredientDetails";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { getCookie } from "../../utils/cookies";
 import { getApiIngredients } from "../../services/actions/ingredientsList";
 import AppHeader from "../app-header/app-header";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { AppDispatch } from "../..";
+import { RootState } from "../../services/reducers";
 function App() {
-  const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
+  const dispatch: AppDispatch = useDispatch()
+  const user = useAppSelector((store : RootState) => store.user)
   React.useEffect(() => {
     dispatch(getApiIngredients());
     dispatch(getUser());

@@ -2,16 +2,21 @@ import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   MOVE_INGREDIENT,
+  actionAddIngredient,
+  actionMoveIngredient,
+  actionRemoveIngredient,
 } from "../actionTypes";
 import ingredientDetails from "./ingredientDetails";
 import { TOP_BOTTOM_TYPE } from "../../constants";
+import ingredientType from "../../utils/type";
 const initialState = {
-  ingredients: [],
+  ingredients: Array<ingredientType>(),
   price: 0,
   capacity: 0,
   counts: new Map(),
 };
-const constructorIngredients = (state = initialState, action) => {
+type action = actionAddIngredient | actionMoveIngredient | actionRemoveIngredient;
+const constructorIngredients = (state = initialState, action : action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
       if (action.ingredient.type != TOP_BOTTOM_TYPE) {
@@ -56,7 +61,7 @@ const constructorIngredients = (state = initialState, action) => {
         );
         return {
           ...state,
-          ingredients: state.ingredients.filter((item) => item.id != action.id),
+          ingredients: state.ingredients.filter((item) => item._id != action.id),
           price: state.price - action.ingredient.price,
         };
       } else {
@@ -77,7 +82,7 @@ const constructorIngredients = (state = initialState, action) => {
         (item) => item.id === action.lastPositionId
       );
       const newPosition = state.ingredients.findIndex(
-        (item) => item.id === action.newPositionId
+        (item) => item._id === action.newPositionId
       );
       if (lastPosition <= newPosition) {
         state.ingredients.splice(

@@ -14,17 +14,23 @@ import {
   removeIngredient,
 } from "../../services/actions/constructorIngredientsList";
 import { TOP_BOTTOM_TYPE } from "../../constants";
+import { AppDispatch } from "../..";
+import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { RootState } from "../../services/reducers";
+
 function BurgerConstructor() {
-  const dispatch = useDispatch();
-  const constructorIngredients = useSelector(
-    (store) => store.constructorIngredients
+  const dispatch : AppDispatch = useAppDispatch()
+  const constructorIngredients = useAppSelector(
+    (store : RootState) => store.constructorIngredients
   );
   const [{ isHover }, drop] = useDrop({
     accept: "ingredient",
-    collect: (monitor) => ({
-      isHover: monitor.isOver(),
-    }),
-    drop({ ingredient }) {
+    collect(monitor) {
+      return {
+        isHover: monitor.isOver()
+      }
+    },
+    drop(ingredient : ingredientType & {type : string}) {
       if (
         ingredient.type === TOP_BOTTOM_TYPE &&
         constructorIngredients.ingredients.length > 0 &&

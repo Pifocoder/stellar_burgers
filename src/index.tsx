@@ -5,18 +5,23 @@ import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose } from "redux";
-import { rootReducer, refreshTokenMiddleware } from "./services/reducers";
+import { rootReducer } from "./services/reducers";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root")  as HTMLElement);
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
   composeEnhancers(
     applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : (f) => f
   )
 );
+export type AppDispatch = typeof store.dispatch
 root.render(
   <React.StrictMode>
     <Provider store={store}>
