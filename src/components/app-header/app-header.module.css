@@ -19,7 +19,8 @@
     margin-left: 14rem;
 }
 .link {
-    cursor: pointer
+    text-decoration: none;
+    cursor: pointer;
 }
 .primary_text {
     color: white;

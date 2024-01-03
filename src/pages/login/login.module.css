@@ -1,0 +1,21 @@
+.body {
+    display: flex;
+    height: 100vh;
+}
+.body__content {
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto;
+  grid-column-gap: 40px;
+  justify-content: center;
+  justify-items: center;
+}
+.link {
+    color: rgba(76, 76, 255, 1);
+    text-decoration: none;
+}
+.form {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+}

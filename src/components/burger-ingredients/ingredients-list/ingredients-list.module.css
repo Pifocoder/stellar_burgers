@@ -4,3 +4,6 @@
     grid-column-gap: 24px;
     grid-row-gap: 32px;
 }
+.nav_link {
+    text-decoration: none;
+}

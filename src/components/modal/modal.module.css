@@ -17,3 +17,6 @@
     top: 60px;
     cursor: pointer;
 }
+.title {
+    text-align: left;
+}
