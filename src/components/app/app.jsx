@@ -28,15 +28,10 @@ import AppHeader from "../app-header/app-header";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const handleLoad = useCallback(async () => {
-    dispatch(getUser());
-  }, [dispatch]);
   React.useEffect(() => {
     dispatch(getApiIngredients());
+    dispatch(getUser());
   }, []);
-  React.useEffect(() => {
-    handleLoad();
-  }, [handleLoad]);
 
   const location = useLocation();
   const state = location.state;
