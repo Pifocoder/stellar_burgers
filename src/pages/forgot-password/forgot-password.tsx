@@ -17,11 +17,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../services/actions/user";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { RootState } from "../../services/reducers";
 
 export function ForgotPasswordPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
+  const user = useAppSelector((store : RootState) => store.user);
 
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState({

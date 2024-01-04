@@ -5,8 +5,16 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import ingredientDetails from "../../services/reducers/ingredientDetails";
 import { useLocation, useParams } from "react-router-dom";
+import ingredientType from "../../utils/type";
+import { RootState } from "../../services/reducers";
+import { useAppSelector } from "../../hooks/useAppSelector";
 
-const nutritionDict = [
+type nutritionDictType = Array<{
+  tag: "proteins" | "fat" | "carbohydrates" | "calories";
+  name: string;
+  unit: string;
+}>;
+const nutritionDict: nutritionDictType = [
   {
     tag: "proteins",
     name: "Белки",
@@ -31,10 +39,16 @@ const nutritionDict = [
 
 function IngredientDetails() {
   const params = useParams();
-  function compare(element, index, array) {
+  function compare(
+    element: ingredientType,
+    index: number,
+    array: ingredientType[]
+  ) {
     return element._id === params.ingredientId;
   }
-  const ingredientsList = useSelector((store) => store.ingredientsList);
+  const ingredientsList = useAppSelector(
+    (store: RootState) => store.ingredientsList
+  );
 
   if (ingredientsList.getIngredientsFailed) {
     return <p>Ошибка: {ingredientsList.error}</p>;
@@ -42,6 +56,9 @@ function IngredientDetails() {
     return <p>Загрузка</p>;
   } else {
     const ingredient = ingredientsList.ingredients.find(compare);
+    if (typeof ingredient === "undefined") {
+      return <></>;
+    }
     return (
       <section className={styles.ingredient_details}>
         <section className={styles.body}>
@@ -60,7 +77,7 @@ function IngredientDetails() {
                   value={ingredient[nutrition.tag]}
                   unit={nutrition.unit}
                   unit_name={nutrition.name}
-                  key={ingredient._id + nutrition.tag + String(index)}
+                  key={ingredient?._id + nutrition.tag + String(index)}
                 />
               );
             })}

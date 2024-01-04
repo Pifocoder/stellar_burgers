@@ -23,8 +23,9 @@ import AppHeader from "../app-header/app-header";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { AppDispatch } from "../..";
 import { RootState } from "../../services/reducers";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 function App() {
-  const dispatch: AppDispatch = useDispatch()
+  const dispatch: AppDispatch = useAppDispatch()
   const user = useAppSelector((store : RootState) => store.user)
   React.useEffect(() => {
     dispatch(getApiIngredients());

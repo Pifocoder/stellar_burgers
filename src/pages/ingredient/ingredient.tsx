@@ -1,4 +1,4 @@
-import { React } from "react";
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { closeIngredientDetails } from "../../services/actions/ingredientDetails";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";

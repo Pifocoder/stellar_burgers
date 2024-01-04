@@ -1,18 +1,26 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./ingredients-list.module.css";
 import Card from "./card/card";
 import PropTypes from "prop-types";
 import ingredientType from "../../../utils/type";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-IngredientsList.propTypes = {
-  title: PropTypes.string.isRequired,
-  ingredientsType: PropTypes.string.isRequired,
-};
-function IngredientsList({ title, ingredientsType }) {
-  const { ingredients } = useSelector((store) => store.ingredientsList);
-  const constructorIngredients = useSelector(
-    (store) => store.constructorIngredients
+import { useAppSelector } from "../../../hooks/useAppSelector";
+import { RootState } from "../../../services/reducers";
+
+interface IngredientsListProps {
+  title: string;
+  ingredientsType: string;
+}
+export const IngredientsList: FC<IngredientsListProps> = ({
+  title,
+  ingredientsType,
+}) => {
+  const { ingredients } = useAppSelector(
+    (store: RootState) => store.ingredientsList
+  );
+  const constructorIngredients = useAppSelector(
+    (store: RootState) => store.constructorIngredients
   );
   const location = useLocation();
   return (
@@ -26,16 +34,11 @@ function IngredientsList({ title, ingredientsType }) {
                 to={"/ingredients/" + ingredient._id}
                 state={{ id: ingredient._id, background: location }}
                 key={ingredient._id}
-                style={{ textDecoration: 'inherit', color: 'inherit' }}
+                style={{ textDecoration: "inherit", color: "inherit" }}
               >
                 <Card
                   ingredient={ingredient}
-                  count={
-                    typeof constructorIngredients.counts.get(ingredient._id) ===
-                    "undefined"
-                      ? 0
-                      : constructorIngredients.counts.get(ingredient._id)
-                  }
+                  count={constructorIngredients.counts.get(ingredient._id) ?? 0}
                 />
               </Link>
             )
@@ -43,6 +46,6 @@ function IngredientsList({ title, ingredientsType }) {
       </section>
     </section>
   );
-}
+};
 
 export default IngredientsList;

@@ -2,8 +2,10 @@ import styles from "./order-details.module.css";
 import React from "react";
 import { ReactComponent as OrderDone } from "../../images/done.svg";
 import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import { RootState } from "../../services/reducers";
+import { useAppSelector } from "../../hooks/useAppSelector";
 function OrderDetails() {
-  const order = useSelector((store) => store.order);
+  const order = useAppSelector((store : RootState) => store.order);
   return (
     <section className={styles.order_modal}>
       <p

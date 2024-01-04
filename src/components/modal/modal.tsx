@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,31 +6,35 @@ import PropTypes from "prop-types";
 import styles from "./modal.module.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Action } from "redux";
 
 const modalRoot = document.getElementById("react-modals");
-
-function Modal({ title, closeModal, children }) {
-  const modalRef = React.useRef(null);
+interface ModalProps {
+  title: string;
+  closeModal?: (() => Action);
+  children: React.ReactElement;
+}
+export const Modal: FC<ModalProps> = ({ title, closeModal, children }) => {
+  const modalRef = React.useRef<HTMLElement>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleCloseModal = (event) => {
-    event.stopPropagation();
-    if (typeof closeModal === 'undefined') {
+  const handleCloseModal = () => {
+    if (typeof closeModal === "undefined") {
       navigate(-1);
     } else {
       dispatch(closeModal());
     }
   };
   React.useEffect(() => {
-    const handleClick = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        handleCloseModal(event);
+    const handleClick = (event : MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as HTMLElement)) {
+        handleCloseModal();
       }
     };
-    const handleESC = (event) => {
+    const handleESC = (event : KeyboardEvent) => {
       if (event.code == "Escape") {
-        handleCloseModal(event);
+        handleCloseModal();
       }
     };
 
@@ -41,33 +45,38 @@ function Modal({ title, closeModal, children }) {
       document.removeEventListener("keydown", handleESC);
     };
   }, []);
-  return ReactDOM.createPortal(
-    <>
-      <ModalOverlay />
-      <section className={styles.modal} ref={modalRef}>
-        <section className={styles.modal__body}>
-          <div className={styles.modal__cross}>
-            <CloseIcon type="primary" onClick={handleCloseModal} />
-          </div>
+  if (modalRoot)
+    return ReactDOM.createPortal(
+      <>
+        <ModalOverlay />
+        <section className={styles.modal} ref={modalRef}>
+          <section className={styles.modal__body}>
+            <div className={styles.modal__cross}>
+              <CloseIcon type="primary" onClick={handleCloseModal} />
+            </div>
 
-          <>
-            {title != "" && (
-              <h2
-                className={
-                  "text text_type_main-large pt-10 pl-10 pr-10 " + styles.title
-                }
-              >
-                {title}
-              </h2>
-            )}
-            {children}
-          </>
+            <>
+              {title != "" && (
+                <h2
+                  className={
+                    "text text_type_main-large pt-10 pl-10 pr-10 " +
+                    styles.title
+                  }
+                >
+                  {title}
+                </h2>
+              )}
+              {children}
+            </>
+          </section>
         </section>
-      </section>
-    </>,
-    modalRoot
-  );
-}
+      </>,
+      modalRoot
+    );
+  else {
+    return <></>;
+  }
+};
 Modal.propTypes = {
   title: PropTypes.string.isRequired,
   closeModal: PropTypes.func,

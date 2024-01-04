@@ -12,6 +12,19 @@ import {
   POST_TOKEN_FAILED,
   POST_TOKEN_SUCCESS,
   POST_STARTED,
+  actionForgotPasswordSuccess,
+  actionPostStarted,
+  actionForgotPasswordFailed,
+  actionPostResetPasswordSuccess,
+  actionPostResetPasswordFailed,
+  actionPostRegisterSuccess,
+  actionPostRegisterFailed,
+  actionPostLoginSuccess,
+  actionPostLoginFailed,
+  actionPostTokenSuccess,
+  actionPostTokenFailed,
+  actionGetUserInfoSuccess,
+  actionGetUserInfoFailed,
 } from "../actionTypes";
 import {
   API_URL_RESET_PASSWORD,
@@ -23,8 +36,28 @@ import {
 } from "../../constants";
 import { getCookie } from "../../utils/cookies";
 import checkResponse from "../../utils/response";
-export function forgotPassword(data) {
-  return async (dispatch) => {
+import { Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { Action } from "redux";
+import { RootState } from "../reducers";
+import { UnknownAsyncThunkAction } from "@reduxjs/toolkit/dist/matchers";
+
+type forgotPasswordData = {
+  email: string;
+};
+type forgotPasswordAction =
+  | actionPostStarted
+  | actionForgotPasswordSuccess
+  | actionForgotPasswordFailed;
+export function forgotPassword(
+  data: forgotPasswordData
+): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAsyncThunkAction
+> {
+  return async (dispatch: Dispatch<forgotPasswordAction>) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_FORGOT_PASSWORD, {
       method: "POST",
@@ -48,9 +81,23 @@ export function forgotPassword(data) {
       });
   };
 }
-
-export function resetPassword(data) {
-  return async (dispatch) => {
+type resetPasswordData = {
+  password: string;
+  token: string;
+};
+type resetPasswordAction =
+  | actionPostStarted
+  | actionPostResetPasswordSuccess
+  | actionPostResetPasswordFailed;
+export function resetPassword(
+  data: resetPasswordData
+): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAsyncThunkAction
+> {
+  return async (dispatch: Dispatch<resetPasswordAction>) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_RESET_PASSWORD, {
       method: "POST",
@@ -74,8 +121,24 @@ export function resetPassword(data) {
       });
   };
 }
-export function register(data) {
-  return async (dispatch) => {
+type registerData = {
+  email: string;
+  password: string;
+  name: string;
+};
+type registerAction =
+  | actionPostStarted
+  | actionPostRegisterSuccess
+  | actionPostRegisterFailed;
+export function register(
+  data: registerData
+): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAsyncThunkAction
+> {
+  return async (dispatch: Dispatch<registerAction>) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_REGISTER, {
       method: "POST",
@@ -91,7 +154,7 @@ export function register(data) {
             type: POST_REGISTER_SUCCESS,
             accessToken: data.accessToken.split("Bearer ")[1],
             refreshToken: data.refreshToken,
-            user: data.user
+            user: data.user,
           });
         } else {
           dispatch({ type: POST_REGISTER_FAILED });
@@ -102,9 +165,23 @@ export function register(data) {
       });
   };
 }
-
-export function login(data) {
-  return async (dispatch) => {
+type loginData = {
+  email: string;
+  password : string
+};
+type loginAction =
+  | actionPostStarted
+  | actionPostLoginSuccess
+  | actionPostLoginFailed;
+export function login(
+  data: loginData
+): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAsyncThunkAction
+> {
+  return async (dispatch: Dispatch<loginAction>) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_LOGIN, {
       method: "POST",
@@ -120,7 +197,7 @@ export function login(data) {
             type: POST_LOGIN_SUCCESS,
             accessToken: data.accessToken.split("Bearer ")[1],
             refreshToken: data.refreshToken,
-            user: data.user
+            user: data.user,
           });
         } else {
           dispatch({ type: POST_LOGIN_FAILED });
@@ -130,9 +207,18 @@ export function login(data) {
         dispatch({ type: POST_LOGIN_FAILED });
       });
   };
-} 
-function refreshToken() {
-  return async (dispatch) => {
+}
+type refreshTokenAction =
+  | actionPostStarted
+  | actionPostTokenSuccess
+  | actionPostTokenFailed;
+function refreshToken(): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAsyncThunkAction
+> {
+  return async (dispatch: Dispatch<refreshTokenAction>) => {
     await fetch(API_URL_TOKEN, {
       method: "POST",
       headers: {
@@ -161,9 +247,15 @@ function refreshToken() {
       });
   };
 }
-export function getUser() {
-  return async (dispatch) => {
-    await dispatch(refreshToken())
+
+export function getUser(): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAsyncThunkAction
+> {
+  return async (dispatch: any) => {
+    await dispatch(refreshToken());
     dispatch({ type: POST_STARTED });
     fetch(API_URL_GET_USER, {
       method: "GET",
@@ -192,9 +284,22 @@ export function getUser() {
       });
   };
 }
-export function updateUser(data) {
-  return async (dispatch) => {
-    await dispatch(refreshToken())
+type updateUserData = {
+  email: string;
+  name: string;
+  password: string;
+};
+
+export function updateUser(
+  data: updateUserData
+): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAsyncThunkAction
+> {
+  return async (dispatch: any) => {
+    await dispatch(refreshToken());
     dispatch({ type: POST_STARTED });
     fetch(API_URL_GET_USER, {
       method: "PATCH",

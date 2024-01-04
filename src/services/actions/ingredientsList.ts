@@ -1,12 +1,16 @@
+import { Dispatch } from "redux";
 import { API_URL_INGREDIENTS } from "../../constants";
 import checkResponse from "../../utils/response";
 import {
     GET_API_INGREDIENTS_SUCCESS,
-    GET_API_INGREDIENTS_FAILED
+    GET_API_INGREDIENTS_FAILED,
+    actionGetApiIngredientsSuccess,
+    actionGetApiIngredientsFailed
 } from "../actionTypes";
+type action = actionGetApiIngredientsSuccess | actionGetApiIngredientsFailed;
 
 export function getApiIngredients() {
-  return function (dispatch) {
+  return function (dispatch: Dispatch<action>) {
     fetch(API_URL_INGREDIENTS)
       .then(checkResponse)
       .then((data) => {
@@ -18,6 +22,7 @@ export function getApiIngredients() {
         } else {
           dispatch({
             type: GET_API_INGREDIENTS_FAILED,
+            error : data.data
           });
         }
       })

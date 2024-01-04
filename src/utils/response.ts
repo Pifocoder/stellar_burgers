@@ -1,7 +1,7 @@
-function checkResponse(resp) {
-    if (resp.ok) {
-        return resp.json();
-    }
-    return Promise.reject(`Ошибка ${resp.status}`);
+function checkResponse(resp: Response)  {
+  if (resp.ok) {
+    return resp.json();
+  }
+  return Promise.reject(`Ошибка ${resp.status}`);
 }
-export default checkResponse
+export default checkResponse;

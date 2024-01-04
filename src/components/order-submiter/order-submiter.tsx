@@ -9,13 +9,15 @@ import constructorIngredients from "../../services/reducers/constructorIngredien
 import { useDispatch, useSelector } from "react-redux";
 import { makeOrder, closeOrderModal } from "../../services/actions/order";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../services/reducers";
+import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
 
 function OrderSubmiter() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
-  const constructorIngredients = useSelector(
-    (store) => store.constructorIngredients
+  const user = useAppSelector((store: RootState) => store.user);
+  const constructorIngredients = useAppSelector(
+    (store: RootState) => store.constructorIngredients
   );
   const data = {
     ingredients: constructorIngredients.ingredients.map(
@@ -23,7 +25,7 @@ function OrderSubmiter() {
     ),
   };
 
-  const order = useSelector((store) => store.order);
+  const order = useAppSelector((store: RootState) => store.order);
 
   return (
     <section className={styles.order_submiter}>
@@ -36,7 +38,7 @@ function OrderSubmiter() {
           if (user.isAuthenticated) {
             dispatch(makeOrder(data));
           } else {
-            navigate('/login')
+            navigate("/login");
           }
         }}
       >

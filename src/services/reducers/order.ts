@@ -3,16 +3,31 @@ import {
   POST_ORDER_FAILED,
   OPEN_ORDER_MODAL,
   CLOSE_ORDER_MODAL,
+  actionPostOrderSuccess,
+  actionPostOrderFailed,
+  actionOpenOrderModal,
+  actionCloseOrderModal,
 } from "../actionTypes";
-const initialState = {
+type orderState = {
+  id: number;
+  status: string;
+  open_modal: boolean;
+  post_order_success: boolean;
+  post_order_failed: boolean;
+};
+const initialState: orderState = {
   id: 0,
   status: "",
   open_modal: false,
   post_order_success: false,
   post_order_failed: false,
 };
-
-const order = (state = initialState, action) => {
+type action =
+  | actionPostOrderSuccess
+  | actionPostOrderFailed
+  | actionOpenOrderModal
+  | actionCloseOrderModal;
+const order = (state : orderState = initialState, action: action) : orderState => {
   switch (action.type) {
     case POST_ORDER_SUCCESS:
       return {

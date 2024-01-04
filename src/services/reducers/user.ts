@@ -13,9 +13,37 @@ import {
   POST_TOKEN_FAILED,
   POST_TOKEN_SUCCESS,
   POST_STARTED,
+  actionForgotPasswordFailed,
+  actionForgotPasswordSuccess,
+  actionGetUserInfoFailed,
+  actionGetUserInfoSuccess,
+  actionPostLoginFailed,
+  actionPostLoginSuccess,
+  actionPostLogoutFailed,
+  actionPostLogoutSuccess,
+  actionPostRegisterFailed,
+  actionPostRegisterSuccess,
+  actionPostResetPasswordFailed,
+  actionPostResetPasswordSuccess,
+  actionPostStarted,
+  actionPostTokenSuccess,
+  actionPostTokenFailed,
 } from "../actionTypes";
 import { ACCESS_TOKEN_LIFETIME } from "../../constants";
-const initialState = {
+export type userType = {
+  email: string;
+  name: string;
+};
+type userState = {
+  isAuthenticated: boolean;
+  user: userType;
+  post_response_success: boolean;
+  post_response_failed: boolean;
+  forgot_password: boolean;
+  reset_password: boolean;
+  accessToken: string;
+};
+const initialState: userState = {
   isAuthenticated: false,
   user: {
     email: "",
@@ -27,8 +55,24 @@ const initialState = {
   reset_password: true,
   accessToken: "",
 };
+type action =
+  | actionForgotPasswordFailed
+  | actionForgotPasswordSuccess
+  | actionGetUserInfoFailed
+  | actionGetUserInfoSuccess
+  | actionPostLoginFailed
+  | actionPostLoginSuccess
+  | actionPostLogoutFailed
+  | actionPostLogoutSuccess
+  | actionPostRegisterFailed
+  | actionPostRegisterSuccess
+  | actionPostResetPasswordFailed
+  | actionPostResetPasswordSuccess
+  | actionPostStarted
+  | actionPostTokenSuccess
+  | actionPostTokenFailed;
 
-const user = (state = initialState, action) => {
+const user = (state = initialState, action: action): userState => {
   switch (action.type) {
     case POST_STARTED:
       return {
@@ -41,7 +85,7 @@ const user = (state = initialState, action) => {
         ...state,
         post_response_success: true,
         post_response_failed: false,
-        forgot_password : true,
+        forgot_password: true,
         reset_password: false,
       };
     case POST_FORGOT_PASSWORD_FAILED:
@@ -49,7 +93,7 @@ const user = (state = initialState, action) => {
         ...state,
         post_response_failed: true,
         post_response_success: false,
-        forgot_password : false,
+        forgot_password: false,
         reset_password: false,
       };
     case POST_RESET_PASSWORD_SUCCESS:
@@ -57,7 +101,7 @@ const user = (state = initialState, action) => {
         ...state,
         post_response_success: true,
         post_response_failed: false,
-        forgot_password : true,
+        forgot_password: true,
         reset_password: true,
       };
     case POST_RESET_PASSWORD_FAILED:
@@ -65,7 +109,7 @@ const user = (state = initialState, action) => {
         ...state,
         post_response_failed: true,
         post_response_success: false,
-        forgot_password : true,
+        forgot_password: true,
         reset_password: false,
       };
     case POST_REGISTER_SUCCESS:
@@ -79,7 +123,7 @@ const user = (state = initialState, action) => {
         post_response_success: true,
         post_response_failed: false,
         accessToken: action.accessToken,
-        user : action.user
+        user: action.user,
       };
     case POST_REGISTER_FAILED:
       return {
@@ -99,7 +143,7 @@ const user = (state = initialState, action) => {
         post_response_success: true,
         post_response_failed: false,
         accessToken: action.accessToken,
-        user : action.user
+        user: action.user,
       };
     case POST_LOGIN_FAILED:
       return {

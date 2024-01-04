@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./middle-ingredient.module.css";
 import {
   DragIcon,
@@ -10,33 +10,39 @@ import { moveIngredient, removeIngredient } from "../../../services/actions/cons
 import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
 import { useRef } from "react";
-function MiddleIngredient({ ingredient, id }) {
+import { constructorIngredient } from "../../../services/reducers/constructorIngredientsList";
+interface MiddleIngredientProps {
+  ingredient : ingredientType,
+  id : number
+}
+
+export const MiddleIngredient : FC<MiddleIngredientProps> = ({ ingredient, id }) => {
   const dispatch = useDispatch();
-  const [{ isDragging }, dragRef] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     type: "constructor_ingredient",
     item: { id },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
-  const [{ isHover }, dropRef] = useDrop({
+  const [{ isHover }, drop] = useDrop({
     accept: "constructor_ingredient",
     collect: (monitor) => ({
       isHover : monitor.isOver()
     }),
 
-    drop: (item) => {
+    drop: (item : constructorIngredient) => {
       dispatch(moveIngredient(item.id, id))
     },
   })
 
-  const ref = useRef(null)
-  const dragDropRef = dragRef(dropRef(ref))
+  const ref = useRef<HTMLLIElement>(null)
+  drag(drop(ref))
   const display = isDragging ? styles.display : ""
   const hover = isHover ? styles.hover : ""
   return (
     
-    <section ref={dragDropRef} className={styles.ingredient + " " + display + " " + hover}>
+    <section ref={ref} className={styles.ingredient + " " + display + " " + hover}>
       <DragIcon type="primary" />
       <ConstructorElement
         handleClose={() =>
@@ -49,7 +55,5 @@ function MiddleIngredient({ ingredient, id }) {
     </section>
   );
 }
-MiddleIngredient.propTypes = {
-  ingredient: ingredientType,
-};
+
 export default MiddleIngredient;

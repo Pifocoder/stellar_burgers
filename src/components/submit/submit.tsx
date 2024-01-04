@@ -1,8 +1,11 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import React, { FC } from "react";
 import styles from "./submit.module.css";
+interface SubmitProps {
+  children: React.ReactNode;
+}
 
-export default function Submit({ children }) {
+export const Submit: FC<SubmitProps> = ({ children }) => {
   return (
     <div className={styles.button}>
       <Button htmlType="button" type="primary" size="medium">
@@ -10,6 +13,6 @@ export default function Submit({ children }) {
       </Button>
     </div>
   );
-}
+};
 
-export { Submit };
+export default Submit;

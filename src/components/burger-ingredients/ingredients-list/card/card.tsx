@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./card.module.css";
 import {
   CurrencyIcon,
@@ -12,8 +12,11 @@ import ingredientType from "../../../../utils/type";
 import { openIngredientDetails } from "../../../../services/actions/ingredientDetails";
 import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
-
-function Card({ ingredient, count }) {
+interface CardProps {
+  ingredient: ingredientType;
+  count: number;
+}
+export const Card: FC<CardProps> = ({ ingredient, count }) => {
   const dispatch = useDispatch();
   const [{ isDrag }, drag] = useDrag({
     type: "ingredient",
@@ -24,10 +27,7 @@ function Card({ ingredient, count }) {
   });
 
   return (
-    <section
-      ref={drag}
-      className={styles.card}
-    >
+    <section ref={drag} className={styles.card}>
       {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
 
       <img src={ingredient.image} alt={ingredient.name} />
@@ -40,9 +40,6 @@ function Card({ ingredient, count }) {
       </p>
     </section>
   );
-}
-Card.propTypes = {
-  ingredient: ingredientType,
-  count: PropTypes.number.isRequired,
 };
+
 export default Card;

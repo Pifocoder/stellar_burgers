@@ -12,23 +12,26 @@ import { closeIngredientDetails } from "../../services/actions/ingredientDetails
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { RootState } from "../../services/reducers";
+export type TabStates = number
 const boundaryScrolls = [0, 250, 775];
 function BurgerIngredients() {
-  const scrollRef = useRef(window);
-  const [activeTab, setActiveTab] = React.useState(0);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [activeTab, setActiveTab] = React.useState<TabStates>(0);
 
-
-  const ingredientsList = useSelector((store) => store.ingredientsList);
+  const ingredientsList = useAppSelector(
+    (store: RootState) => store.ingredientsList
+  );
   const handleScroll = () => {
-    let [minDist, border] = [scrollRef.current?.scrollTop, 0];
+    let [minDist, border] : [number, TabStates] = [scrollRef.current?.scrollTop ?? 0, 0];
     for (let index = 0; index < boundaryScrolls.length; ++index) {
       if (
-        Math.abs(scrollRef.current?.scrollTop - boundaryScrolls[index]) <
+        Math.abs((scrollRef.current?.scrollTop ?? 0) - boundaryScrolls[index]) <
         minDist
       ) {
         minDist = Math.abs(
-          scrollRef.current?.scrollTop - boundaryScrolls[index]
+          (scrollRef.current?.scrollTop ?? 0) - boundaryScrolls[index]
         );
         border = index;
       }
@@ -40,7 +43,9 @@ function BurgerIngredients() {
     return () => scrollRef.current?.removeEventListener("scroll", handleScroll);
   }, [ingredientsList.getIngredientsSuccess]);
 
-  const ingredientDetails = useSelector((store) => store.ingredientDetails);
+  const ingredientDetails = useAppSelector(
+    (store: RootState) => store.ingredientDetails
+  );
   if (ingredientsList.getIngredientsFailed) {
     return <p>Ошибка: {ingredientsList.error}</p>;
   } else if (!ingredientsList.getIngredientsSuccess) {

@@ -17,20 +17,21 @@ import { TOP_BOTTOM_TYPE } from "../../constants";
 import { AppDispatch } from "../..";
 import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
 import { RootState } from "../../services/reducers";
+import { actionAddIngredient, actionRemoveIngredient } from "../../services/actionTypes";
 
 function BurgerConstructor() {
   const dispatch : AppDispatch = useAppDispatch()
   const constructorIngredients = useAppSelector(
     (store : RootState) => store.constructorIngredients
   );
-  const [{ isHover }, drop] = useDrop({
+  const [{ isHover }, drop] = useDrop< {ingredient : ingredientType} & {type : string}, void, {isHover : boolean}>({
     accept: "ingredient",
     collect(monitor) {
       return {
         isHover: monitor.isOver()
       }
     },
-    drop(ingredient : ingredientType & {type : string}) {
+    drop(ingredient : {ingredient : ingredientType} & {type : string}) {
       if (
         ingredient.type === TOP_BOTTOM_TYPE &&
         constructorIngredients.ingredients.length > 0 &&
@@ -43,10 +44,9 @@ function BurgerConstructor() {
           )
         );
       }
-      dispatch(addIngredient(ingredient));
+      dispatch(addIngredient(ingredient.ingredient));
     },
   });
-
   const opacity = isHover
     ? styles.burger_constructor__list_ingredients_hover
     : "";

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./profile.module.css";
 import AppHeader from "../../components/app-header/app-header";
+import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { RootState } from "../../services/reducers";
 
 import {
   Button,
@@ -12,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../services/actions/user";
 import { updateUser } from "../../services/actions/user";
 export function ProfilePage() {
-  const dispatch = useDispatch();
-  const user = useSelector((store) => store.user.user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store: RootState) => store.user.user);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");

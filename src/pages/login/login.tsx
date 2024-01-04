@@ -17,8 +17,11 @@ import { useDispatch } from "react-redux";
 import { getUser, login } from "../../services/actions/user";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { RootState } from "../../services/reducers";
+
 export function LoginPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState({
@@ -26,7 +29,7 @@ export function LoginPage() {
     error: "",
   });
   const [password, setPassword] = React.useState("");
-  const user = useSelector((store) => store.user);
+  const user = useAppSelector((store: RootState) => store.user);
   const navigate = useNavigate();
   React.useEffect(() => {
     if (user.isAuthenticated) {
@@ -36,7 +39,7 @@ export function LoginPage() {
   React.useEffect(() => {
     if (user.isAuthenticated) {
       navigate("/", { replace: true });
-      dispatch(getUser())
+      dispatch(getUser());
     }
   }, [user.isAuthenticated]);
   return (

@@ -3,11 +3,20 @@ import {
   POST_ORDER_FAILED,
   OPEN_ORDER_MODAL,
   CLOSE_ORDER_MODAL,
+  actionPostOrderSuccess,
+  actionPostOrderFailed,
+  actionOpenOrderModal,
+  actionCloseOrderModal,
 } from "../actionTypes";
 import { API_URL_ORDERS } from "../../constants";
 import checkResponse from "../../utils/response";
-export function makeOrder(data) {
-  return function (dispatch) {
+import { Dispatch } from "redux";
+type makeOrderData = {
+  ingredients : Array<string>
+}
+type makeOrderAction = actionPostOrderSuccess | actionPostOrderFailed | actionOpenOrderModal
+export function makeOrder(data : makeOrderData) {
+  return function (dispatch : Dispatch<makeOrderAction>) {
     fetch(API_URL_ORDERS, {
       method: "POST",
       headers: {
@@ -33,9 +42,9 @@ export function makeOrder(data) {
   };
 }
 
-export function openOrderModal() {
+export function openOrderModal() : actionOpenOrderModal {
   return { type: OPEN_ORDER_MODAL };
 }
-export function closeOrderModal() {
+export function closeOrderModal() : actionCloseOrderModal{
   return { type: CLOSE_ORDER_MODAL };
 }
