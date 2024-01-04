@@ -42,17 +42,17 @@ import { Action } from "redux";
 import { RootState } from "../reducers";
 import { UnknownAsyncThunkAction } from "@reduxjs/toolkit/dist/matchers";
 
-type forgotPasswordData = {
+type ForgotPasswordData = {
   email: string;
 };
-type forgotPasswordAction =
+type ForgotPasswordAction =
   | ActionPostStarted
   | ActionForgotPasswordSuccess
   | ActionForgotPasswordFailed;
 export function forgotPassword(
-  data: forgotPasswordData
-): ThunkAction<void, RootState, unknown, forgotPasswordAction> {
-  return async (dispatch: Dispatch<forgotPasswordAction>) => {
+  data: ForgotPasswordData
+): ThunkAction<void, RootState, unknown, ForgotPasswordAction> {
+  return async (dispatch: Dispatch<ForgotPasswordAction>) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_FORGOT_PASSWORD, {
       method: "POST",
@@ -76,18 +76,18 @@ export function forgotPassword(
       });
   };
 }
-type resetPasswordData = {
+type ResetPasswordData = {
   password: string;
   token: string;
 };
-type resetPasswordAction =
+type ResetPasswordAction =
   | ActionPostStarted
   | ActionPostResetPasswordSuccess
   | ActionPostResetPasswordFailed;
 export function resetPassword(
-  data: resetPasswordData
-): ThunkAction<void, RootState, unknown, resetPasswordAction> {
-  return async (dispatch: Dispatch<resetPasswordAction>) => {
+  data: ResetPasswordData
+): ThunkAction<void, RootState, unknown, ResetPasswordAction> {
+  return async (dispatch: Dispatch<ResetPasswordAction>) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_RESET_PASSWORD, {
       method: "POST",
@@ -111,19 +111,19 @@ export function resetPassword(
       });
   };
 }
-type registerData = {
+type RegisterData = {
   email: string;
   password: string;
   name: string;
 };
-type registerAction =
+type RegisterAction =
   | ActionPostStarted
   | ActionPostRegisterSuccess
   | ActionPostRegisterFailed;
 export function register(
-  data: registerData
-): ThunkAction<void, RootState, unknown, registerAction> {
-  return async (dispatch: Dispatch<registerAction>) => {
+  data: RegisterData
+): ThunkAction<void, RootState, unknown, RegisterAction> {
+  return async (dispatch: Dispatch<RegisterAction>) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_REGISTER, {
       method: "POST",
@@ -150,18 +150,18 @@ export function register(
       });
   };
 }
-type loginData = {
+type LoginData = {
   email: string;
   password: string;
 };
-type loginAction =
+type LoginAction =
   | ActionPostStarted
   | ActionPostLoginSuccess
   | ActionPostLoginFailed;
 export function login(
-  data: loginData
-): ThunkAction<void, RootState, unknown, loginAction> {
-  return async (dispatch: Dispatch<loginAction>) => {
+  data: LoginData
+): ThunkAction<void, RootState, unknown, LoginAction> {
+  return async (dispatch: Dispatch<LoginAction>) => {
     dispatch({ type: POST_STARTED });
     fetch(API_URL_LOGIN, {
       method: "POST",
@@ -188,7 +188,7 @@ export function login(
       });
   };
 }
-type refreshTokenAction =
+type RefreshTokenAction =
   | ActionPostStarted
   | ActionPostTokenSuccess
   | ActionPostTokenFailed;
@@ -196,9 +196,9 @@ function refreshToken(): ThunkAction<
   void,
   RootState,
   unknown,
-  refreshTokenAction
+  RefreshTokenAction
 > {
-  return async (dispatch: Dispatch<refreshTokenAction>) => {
+  return async (dispatch: Dispatch<RefreshTokenAction>) => {
     await fetch(API_URL_TOKEN, {
       method: "POST",
       headers: {
@@ -235,10 +235,14 @@ export function getUser(): ThunkAction<
   void,
   RootState,
   unknown,
-  refreshTokenAction | GetUserAction
+  RefreshTokenAction | GetUserAction
 > {
   return async (
-    dispatch: ThunkDispatch<RootState, unknown, refreshTokenAction | GetUserAction>
+    dispatch: ThunkDispatch<
+      RootState,
+      unknown,
+      RefreshTokenAction | GetUserAction
+    >
   ) => {
     await dispatch(refreshToken());
     dispatch({ type: POST_STARTED });
@@ -269,16 +273,22 @@ export function getUser(): ThunkAction<
       });
   };
 }
-type updateUserData = {
+type UdateUserData = {
   email: string;
   name: string;
   password: string;
 };
-type updateUserAction = GetUserAction;
+type UpdateUserAction = GetUserAction;
 export function updateUser(
-  data: updateUserData
-): ThunkAction<void, RootState, unknown, updateUserAction> {
-  return async (dispatch: ThunkDispatch<RootState, unknown, refreshTokenAction | updateUserAction>) => {
+  data: UdateUserData
+): ThunkAction<void, RootState, unknown, UpdateUserAction> {
+  return async (
+    dispatch: ThunkDispatch<
+      RootState,
+      unknown,
+      RefreshTokenAction | UpdateUserAction
+    >
+  ) => {
     await dispatch(refreshToken());
     dispatch({ type: POST_STARTED });
     fetch(API_URL_GET_USER, {

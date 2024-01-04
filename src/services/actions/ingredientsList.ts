@@ -7,10 +7,10 @@ import {
     ActionGetApiIngredientsSuccess,
     ActionGetApiIngredientsFailed
 } from "../actionTypes";
-type action = ActionGetApiIngredientsSuccess | ActionGetApiIngredientsFailed;
+type ActionIngredientsList = ActionGetApiIngredientsSuccess | ActionGetApiIngredientsFailed;
 
 export function getApiIngredients() {
-  return function (dispatch: Dispatch<action>) {
+  return function (dispatch: Dispatch<ActionIngredientsList>) {
     fetch(API_URL_INGREDIENTS)
       .then(checkResponse)
       .then((data) => {

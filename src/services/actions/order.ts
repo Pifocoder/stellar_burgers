@@ -11,12 +11,12 @@ import {
 import { API_URL_ORDERS } from "../../constants";
 import checkResponse from "../../utils/response";
 import { Dispatch } from "redux";
-type makeOrderData = {
+type MakeOrderData = {
   ingredients : Array<string>
 }
-type makeOrderAction = ActionPostOrderSuccess | ActionPostOrderFailed | ActionOpenOrderModal
-export function makeOrder(data : makeOrderData) {
-  return function (dispatch : Dispatch<makeOrderAction>) {
+type MakeOrderAction = ActionPostOrderSuccess | ActionPostOrderFailed | ActionOpenOrderModal
+export function makeOrder(data : MakeOrderData) {
+  return function (dispatch : Dispatch<MakeOrderAction>) {
     fetch(API_URL_ORDERS, {
       method: "POST",
       headers: {
