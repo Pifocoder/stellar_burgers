@@ -2,8 +2,8 @@ import ingredientType from "../../utils/type";
 import {
   GET_API_INGREDIENTS_FAILED,
   GET_API_INGREDIENTS_SUCCESS,
-  actionGetApiIngredientsFailed,
-  actionGetApiIngredientsSuccess,
+  ActionGetApiIngredientsFailed,
+  ActionGetApiIngredientsSuccess,
 } from "../actionTypes";
 export type ingredientListState = {
   getIngredientsSuccess : boolean,
@@ -17,7 +17,7 @@ const initialState : ingredientListState = {
   error: null,
   ingredients: Array<ingredientType>(),
 };
-type action = actionGetApiIngredientsSuccess | actionGetApiIngredientsFailed;
+type action = ActionGetApiIngredientsSuccess | ActionGetApiIngredientsFailed;
 const ingredientsList = (state = initialState, action: action) : ingredientListState => {
   switch (action.type) {
     case GET_API_INGREDIENTS_FAILED:

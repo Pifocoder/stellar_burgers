@@ -13,21 +13,21 @@ import {
   POST_TOKEN_FAILED,
   POST_TOKEN_SUCCESS,
   POST_STARTED,
-  actionForgotPasswordFailed,
-  actionForgotPasswordSuccess,
-  actionGetUserInfoFailed,
-  actionGetUserInfoSuccess,
-  actionPostLoginFailed,
-  actionPostLoginSuccess,
-  actionPostLogoutFailed,
-  actionPostLogoutSuccess,
-  actionPostRegisterFailed,
-  actionPostRegisterSuccess,
-  actionPostResetPasswordFailed,
-  actionPostResetPasswordSuccess,
-  actionPostStarted,
-  actionPostTokenSuccess,
-  actionPostTokenFailed,
+  ActionForgotPasswordFailed,
+  ActionForgotPasswordSuccess,
+  ActionGetUserInfoFailed,
+  ActionGetUserInfoSuccess,
+  ActionPostLoginFailed,
+  ActionPostLoginSuccess,
+  ActionPostLogoutFailed,
+  ActionPostLogoutSuccess,
+  ActionPostRegisterFailed,
+  ActionPostRegisterSuccess,
+  ActionPostResetPasswordFailed,
+  ActionPostResetPasswordSuccess,
+  ActionPostStarted,
+  ActionPostTokenSuccess,
+  ActionPostTokenFailed,
 } from "../actionTypes";
 import { ACCESS_TOKEN_LIFETIME } from "../../constants";
 export type userType = {
@@ -56,21 +56,21 @@ const initialState: userState = {
   accessToken: "",
 };
 type action =
-  | actionForgotPasswordFailed
-  | actionForgotPasswordSuccess
-  | actionGetUserInfoFailed
-  | actionGetUserInfoSuccess
-  | actionPostLoginFailed
-  | actionPostLoginSuccess
-  | actionPostLogoutFailed
-  | actionPostLogoutSuccess
-  | actionPostRegisterFailed
-  | actionPostRegisterSuccess
-  | actionPostResetPasswordFailed
-  | actionPostResetPasswordSuccess
-  | actionPostStarted
-  | actionPostTokenSuccess
-  | actionPostTokenFailed;
+  | ActionForgotPasswordFailed
+  | ActionForgotPasswordSuccess
+  | ActionGetUserInfoFailed
+  | ActionGetUserInfoSuccess
+  | ActionPostLoginFailed
+  | ActionPostLoginSuccess
+  | ActionPostLogoutFailed
+  | ActionPostLogoutSuccess
+  | ActionPostRegisterFailed
+  | ActionPostRegisterSuccess
+  | ActionPostResetPasswordFailed
+  | ActionPostResetPasswordSuccess
+  | ActionPostStarted
+  | ActionPostTokenSuccess
+  | ActionPostTokenFailed;
 
 const user = (state = initialState, action: action): userState => {
   switch (action.type) {

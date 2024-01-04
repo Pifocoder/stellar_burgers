@@ -13,11 +13,11 @@ import {
 import { Link } from "react-router-dom";
 
 import { validateEmail } from "../../utils/validate";
-import { useDispatch } from "react-redux";
+
 import { getUser, login } from "../../services/actions/user";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { RootState } from "../../services/reducers";
 
 export function LoginPage() {
@@ -29,7 +29,7 @@ export function LoginPage() {
     error: "",
   });
   const [password, setPassword] = React.useState("");
-  const user = useAppSelector((store: RootState) => store.user);
+  const user = useAppSelector((store) => store.user);
   const navigate = useNavigate();
   React.useEffect(() => {
     if (user.isAuthenticated) {

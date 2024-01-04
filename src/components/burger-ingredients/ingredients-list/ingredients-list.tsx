@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import styles from "./ingredients-list.module.css";
 import Card from "./card/card";
-import PropTypes from "prop-types";
+
 import ingredientType from "../../../utils/type";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../../hooks/useAppSelector";
+import { useAppSelector } from "../../../hooks/store";
 import { RootState } from "../../../services/reducers";
 
 interface IngredientsListProps {
@@ -17,10 +17,10 @@ export const IngredientsList: FC<IngredientsListProps> = ({
   ingredientsType,
 }) => {
   const { ingredients } = useAppSelector(
-    (store: RootState) => store.ingredientsList
+    (store) => store.ingredientsList
   );
   const constructorIngredients = useAppSelector(
-    (store: RootState) => store.constructorIngredients
+    (store) => store.constructorIngredients
   );
   const location = useLocation();
   return (

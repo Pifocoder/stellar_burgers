@@ -4,10 +4,10 @@ import checkResponse from "../../utils/response";
 import {
     GET_API_INGREDIENTS_SUCCESS,
     GET_API_INGREDIENTS_FAILED,
-    actionGetApiIngredientsSuccess,
-    actionGetApiIngredientsFailed
+    ActionGetApiIngredientsSuccess,
+    ActionGetApiIngredientsFailed
 } from "../actionTypes";
-type action = actionGetApiIngredientsSuccess | actionGetApiIngredientsFailed;
+type action = ActionGetApiIngredientsSuccess | ActionGetApiIngredientsFailed;
 
 export function getApiIngredients() {
   return function (dispatch: Dispatch<action>) {

@@ -6,7 +6,7 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { RootState } from "../../services/reducers";
 
 import {
@@ -26,7 +26,7 @@ export function RegisterPage() {
   });
   const [password, setPassword] = React.useState("");
   const dispatch = useAppDispatch();
-  const user = useAppSelector((store: RootState) => store.user);
+  const user = useAppSelector((store) => store.user);
   const navigate = useNavigate();
   React.useEffect(() => {
     if (user.post_response_success) {

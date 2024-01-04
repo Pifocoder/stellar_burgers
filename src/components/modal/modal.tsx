@@ -2,11 +2,12 @@ import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+
 import styles from "./modal.module.css";
-import { useDispatch } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 import { Action } from "redux";
+import { useAppDispatch } from "../../hooks/store";
 
 const modalRoot = document.getElementById("react-modals");
 interface ModalProps {
@@ -16,7 +17,7 @@ interface ModalProps {
 }
 export const Modal: FC<ModalProps> = ({ title, closeModal, children }) => {
   const modalRef = React.useRef<HTMLElement>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleCloseModal = () => {
@@ -77,9 +78,5 @@ export const Modal: FC<ModalProps> = ({ title, closeModal, children }) => {
     return <></>;
   }
 };
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  closeModal: PropTypes.func,
-  children: PropTypes.element.isRequired,
-};
+
 export default Modal;

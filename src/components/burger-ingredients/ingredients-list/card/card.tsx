@@ -7,17 +7,16 @@ import {
 import Modal from "../../../modal/modal";
 import IngredientDetails from "../../../ingredient-details/ingredient-details";
 import { useModal } from "../../../../hooks/useModal";
-import PropTypes from "prop-types";
+
 import ingredientType from "../../../../utils/type";
 import { openIngredientDetails } from "../../../../services/actions/ingredientDetails";
-import { useDispatch } from "react-redux";
+
 import { useDrag } from "react-dnd";
 interface CardProps {
   ingredient: ingredientType;
   count: number;
 }
 export const Card: FC<CardProps> = ({ ingredient, count }) => {
-  const dispatch = useDispatch();
   const [{ isDrag }, drag] = useDrag({
     type: "ingredient",
     item: { ingredient },

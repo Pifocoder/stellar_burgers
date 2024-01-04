@@ -3,11 +3,11 @@ import styles from "./burger-constructor.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderSubmiter from "../order-submiter/order-submiter";
 import MiddleIngredient from "./middle-ingredient/middle-ingredient";
-import PropTypes from "prop-types";
+
 import ingredientType from "../../utils/type";
 import { useSelector } from "react-redux";
 import constructorIngredients from "../../services/reducers/constructorIngredientsList";
-import { useDispatch } from "react-redux";
+
 import { useDrop } from "react-dnd";
 import {
   addIngredient,
@@ -15,9 +15,9 @@ import {
 } from "../../services/actions/constructorIngredientsList";
 import { TOP_BOTTOM_TYPE } from "../../constants";
 import { AppDispatch } from "../..";
-import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { RootState } from "../../services/reducers";
-import { actionAddIngredient, actionRemoveIngredient } from "../../services/actionTypes";
+import { ActionAddIngredient, ActionRemoveIngredient } from "../../services/actionTypes";
 
 function BurgerConstructor() {
   const dispatch : AppDispatch = useAppDispatch()

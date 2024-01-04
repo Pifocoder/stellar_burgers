@@ -1,7 +1,7 @@
 import styles from "./nutrition-value.module.css";
 import React, { FC } from "react";
 
-import PropTypes from "prop-types";
+
 type NutritionValueProps = {
   value: number;
   unit: string;

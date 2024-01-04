@@ -20,12 +20,12 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { getApiIngredients } from "../../services/actions/ingredientsList";
 import AppHeader from "../app-header/app-header";
-import { useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { AppDispatch } from "../..";
 import { RootState } from "../../services/reducers";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+
 function App() {
-  const dispatch: AppDispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const user = useAppSelector((store : RootState) => store.user)
   React.useEffect(() => {
     dispatch(getApiIngredients());

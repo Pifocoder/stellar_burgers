@@ -3,17 +3,17 @@ import {
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
   REMOVE_INGREDIENT,
-  actionAddIngredient,
-  actionRemoveIngredient,
+  ActionAddIngredient,
+  ActionRemoveIngredient,
 } from "../actionTypes";
 import { constructorIngredient } from "../reducers/constructorIngredientsList";
-export function addIngredient(ingredient: ingredientType): actionAddIngredient {
+export function addIngredient(ingredient: ingredientType): ActionAddIngredient {
   return { type: ADD_INGREDIENT, ingredient: ingredient };
 }
 export function removeIngredient(
   ingredient: ingredientType,
   id: number
-): actionRemoveIngredient {
+): ActionRemoveIngredient {
   return {
     type: REMOVE_INGREDIENT,
     ingredient: {

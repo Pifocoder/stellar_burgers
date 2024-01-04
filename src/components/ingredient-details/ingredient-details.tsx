@@ -1,20 +1,20 @@
 import React from "react";
 import styles from "./ingredient-details.module.css";
 import NutritionValue from "./nutrition-value/nutrition-value";
-import PropTypes from "prop-types";
+
 import { useSelector } from "react-redux";
 import ingredientDetails from "../../services/reducers/ingredientDetails";
 import { useLocation, useParams } from "react-router-dom";
 import ingredientType from "../../utils/type";
 import { RootState } from "../../services/reducers";
-import { useAppSelector } from "../../hooks/useAppSelector";
+import { useAppSelector } from "../../hooks/store";
 
-type nutritionDictType = Array<{
+type NutritionDictType = Array<{
   tag: "proteins" | "fat" | "carbohydrates" | "calories";
   name: string;
   unit: string;
 }>;
-const nutritionDict: nutritionDictType = [
+const nutritionDict: NutritionDictType = [
   {
     tag: "proteins",
     name: "Белки",
@@ -47,7 +47,7 @@ function IngredientDetails() {
     return element._id === params.ingredientId;
   }
   const ingredientsList = useAppSelector(
-    (store: RootState) => store.ingredientsList
+    (store) => store.ingredientsList
   );
 
   if (ingredientsList.getIngredientsFailed) {

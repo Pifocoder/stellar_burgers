@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./tab.module.css";
-import PropTypes from "prop-types";
+
 import { TabStates } from "../burger-ingredients";
 interface BurgerIngredientsTabProps {
   activeTab: TabStates;

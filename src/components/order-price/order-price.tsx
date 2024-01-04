@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import styles from "./order-price.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+
 interface OrderPriceProps {
   orderPrice: number;
 }

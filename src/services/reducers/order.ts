@@ -3,10 +3,10 @@ import {
   POST_ORDER_FAILED,
   OPEN_ORDER_MODAL,
   CLOSE_ORDER_MODAL,
-  actionPostOrderSuccess,
-  actionPostOrderFailed,
-  actionOpenOrderModal,
-  actionCloseOrderModal,
+  ActionPostOrderSuccess,
+  ActionPostOrderFailed,
+  ActionOpenOrderModal,
+  ActionCloseOrderModal,
 } from "../actionTypes";
 type orderState = {
   id: number;
@@ -23,10 +23,10 @@ const initialState: orderState = {
   post_order_failed: false,
 };
 type action =
-  | actionPostOrderSuccess
-  | actionPostOrderFailed
-  | actionOpenOrderModal
-  | actionCloseOrderModal;
+  | ActionPostOrderSuccess
+  | ActionPostOrderFailed
+  | ActionOpenOrderModal
+  | ActionCloseOrderModal;
 const order = (state : orderState = initialState, action: action) : orderState => {
   switch (action.type) {
     case POST_ORDER_SUCCESS:

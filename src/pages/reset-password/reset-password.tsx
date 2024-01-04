@@ -5,7 +5,7 @@ import BurgerIngredients from "../../components/burger-ingredients/burger-ingred
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { RootState } from "../../services/reducers";
 
 import {
@@ -20,7 +20,7 @@ import { resetPassword } from "../../services/actions/user";
 export function ResetPasswordPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector((store: RootState) => store.user);
+  const user = useAppSelector((store) => store.user);
   const [password, setPassword] = React.useState("");
   const [emailCode, setEmailCode] = React.useState("");
   React.useEffect(() => {

@@ -4,20 +4,21 @@ import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+
 import ingredientType from "../../../utils/type";
 import { moveIngredient, removeIngredient } from "../../../services/actions/constructorIngredientsList";
-import { useDispatch } from "react-redux";
+
 import { useDrop, useDrag } from "react-dnd";
 import { useRef } from "react";
 import { constructorIngredient } from "../../../services/reducers/constructorIngredientsList";
+import { useAppDispatch } from "../../../hooks/store";
 interface MiddleIngredientProps {
   ingredient : ingredientType,
   id : number
 }
 
 export const MiddleIngredient : FC<MiddleIngredientProps> = ({ ingredient, id }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ isDragging }, drag] = useDrag({
     type: "constructor_ingredient",
     item: { id },

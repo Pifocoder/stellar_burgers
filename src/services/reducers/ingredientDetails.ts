@@ -2,8 +2,8 @@ import ingredientType from "../../utils/type";
 import {
   OPEN_INGREDIENT_DETAILS,
   CLOSE_INGREDIENT_DETAILS,
-  actionOpenIngredientDetails,
-  actionCloseIngredientDetails,
+  ActionOpenIngredientDetails,
+  ActionCloseIngredientDetails,
 } from "../actionTypes";
 interface ingredientDetailsState {
   open: boolean;
@@ -13,7 +13,7 @@ const initialState: ingredientDetailsState = {
   open: false,
   ingredient: {},
 };
-type action = actionOpenIngredientDetails | actionCloseIngredientDetails;
+type action = ActionOpenIngredientDetails | ActionCloseIngredientDetails;
 const ingredientDetails = (
   state = initialState,
   action: action

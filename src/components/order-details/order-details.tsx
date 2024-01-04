@@ -3,7 +3,7 @@ import React from "react";
 import { ReactComponent as OrderDone } from "../../images/done.svg";
 import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
 import { RootState } from "../../services/reducers";
-import { useAppSelector } from "../../hooks/useAppSelector";
+import { useAppSelector } from "../../hooks/store";
 function OrderDetails() {
   const order = useAppSelector((store : RootState) => store.order);
   return (

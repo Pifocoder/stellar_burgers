@@ -4,20 +4,20 @@ import OrderPrice from "../order-price/order-price";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderModal from "../order-details/order-details";
 import Modal from "../modal/modal";
-import PropTypes from "prop-types";
+
 import constructorIngredients from "../../services/reducers/constructorIngredientsList";
 import { useDispatch, useSelector } from "react-redux";
 import { makeOrder, closeOrderModal } from "../../services/actions/order";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../services/reducers";
-import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 
 function OrderSubmiter() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector((store: RootState) => store.user);
+  const user = useAppSelector((store) => store.user);
   const constructorIngredients = useAppSelector(
-    (store: RootState) => store.constructorIngredients
+    (store) => store.constructorIngredients
   );
   const data = {
     ingredients: constructorIngredients.ingredients.map(
@@ -25,7 +25,7 @@ function OrderSubmiter() {
     ),
   };
 
-  const order = useAppSelector((store: RootState) => store.order);
+  const order = useAppSelector((store) => store.order);
 
   return (
     <section className={styles.order_submiter}>

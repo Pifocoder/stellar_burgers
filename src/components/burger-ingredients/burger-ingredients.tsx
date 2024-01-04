@@ -3,16 +3,16 @@ import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import BurgerIngredientsTab from "./tab/tab";
 import IngredientsList from "./ingredients-list/ingredients-list";
-import PropTypes from "prop-types";
+
 import ingredientType from "../../utils/type";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+
 import { getApiIngredients } from "../../services/actions/ingredientsList";
 import { closeIngredientDetails } from "../../services/actions/ingredientDetails";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../hooks/useAppSelector";
+import { useAppSelector } from "../../hooks/store";
 import { RootState } from "../../services/reducers";
 export type TabStates = number
 const boundaryScrolls = [0, 250, 775];
@@ -21,7 +21,7 @@ function BurgerIngredients() {
   const [activeTab, setActiveTab] = React.useState<TabStates>(0);
 
   const ingredientsList = useAppSelector(
-    (store: RootState) => store.ingredientsList
+    (store) => store.ingredientsList
   );
   const handleScroll = () => {
     let [minDist, border] : [number, TabStates] = [scrollRef.current?.scrollTop ?? 0, 0];
@@ -44,7 +44,7 @@ function BurgerIngredients() {
   }, [ingredientsList.getIngredientsSuccess]);
 
   const ingredientDetails = useAppSelector(
-    (store: RootState) => store.ingredientDetails
+    (store) => store.ingredientDetails
   );
   if (ingredientsList.getIngredientsFailed) {
     return <p>Ошибка: {ingredientsList.error}</p>;

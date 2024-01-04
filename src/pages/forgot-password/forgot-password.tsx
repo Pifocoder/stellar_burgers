@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../services/actions/user";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { RootState } from "../../services/reducers";
 
 export function ForgotPasswordPage() {

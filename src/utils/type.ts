@@ -1,4 +1,4 @@
-type ingredientType = {
+type IngredientType = {
   name: string;
 
   image: string;
@@ -14,4 +14,4 @@ type ingredientType = {
   __v: number;
   _id: string;
 };
-export default ingredientType;
+export default IngredientType;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./profile.module.css";
 import AppHeader from "../../components/app-header/app-header";
-import { useAppDispatch, useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { RootState } from "../../services/reducers";
 
 import {
@@ -15,7 +15,7 @@ import { getUser } from "../../services/actions/user";
 import { updateUser } from "../../services/actions/user";
 export function ProfilePage() {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((store: RootState) => store.user.user);
+  const user = useAppSelector((store) => store.user.user);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");

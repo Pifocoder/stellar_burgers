@@ -2,9 +2,9 @@ import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   MOVE_INGREDIENT,
-  actionAddIngredient,
-  actionMoveIngredient,
-  actionRemoveIngredient,
+  ActionAddIngredient,
+  ActionMoveIngredient,
+  ActionRemoveIngredient,
 } from "../actionTypes";
 import ingredientDetails from "./ingredientDetails";
 import { TOP_BOTTOM_TYPE } from "../../constants";
@@ -25,13 +25,13 @@ const initialState: constructorIngredientState = {
   capacity: 0,
   counts: new Map<string, number>(),
 };
-export type actionConstructorIngredients =
-  | actionAddIngredient
-  | actionMoveIngredient
-  | actionRemoveIngredient;
+export type ActionConstructorIngredients =
+  | ActionAddIngredient
+  | ActionMoveIngredient
+  | ActionRemoveIngredient;
 const constructorIngredients = (
   state = initialState,
-  action: actionConstructorIngredients
+  action: ActionConstructorIngredients
 ): constructorIngredientState => {
   switch (action.type) {
     case ADD_INGREDIENT:
