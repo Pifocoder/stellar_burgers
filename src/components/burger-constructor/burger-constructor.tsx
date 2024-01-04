@@ -24,16 +24,16 @@ function BurgerConstructor() {
   const constructorIngredients = useAppSelector(
     (store : RootState) => store.constructorIngredients
   );
-  const [{ isHover }, drop] = useDrop< {ingredient : ingredientType} & {type : string}, void, {isHover : boolean}>({
+  const [{ isHover }, drop] = useDrop< {ingredient : ingredientType}, void, {isHover : boolean}>({
     accept: "ingredient",
     collect(monitor) {
       return {
         isHover: monitor.isOver()
       }
     },
-    drop(ingredient : {ingredient : ingredientType} & {type : string}) {
+    drop(ingredient : {ingredient : ingredientType}) {
       if (
-        ingredient.type === TOP_BOTTOM_TYPE &&
+        ingredient.ingredient.type === TOP_BOTTOM_TYPE &&
         constructorIngredients.ingredients.length > 0 &&
         constructorIngredients.ingredients[0].ingredient.type === TOP_BOTTOM_TYPE
       ) {
