@@ -23,10 +23,12 @@ import AppHeader from "../app-header/app-header";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { AppDispatch } from "../..";
 import { RootState } from "../../services/reducers";
+import FeedPage from "../../pages/feed/feed";
+import { ProfileFeedPage } from "../../pages/profile-feed/profile-feed";
 
 function App() {
-  const dispatch = useAppDispatch()
-  const user = useAppSelector((store : RootState) => store.user)
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store: RootState) => store.user);
   React.useEffect(() => {
     dispatch(getApiIngredients());
     dispatch(getUser());
@@ -41,6 +43,10 @@ function App() {
         <Route
           path="/profile"
           element={<ProtectedRoute children={<ProfilePage />} />}
+        />
+        <Route
+          path="/profile/orders"
+          element={<ProtectedRoute children={<ProfileFeedPage />} />}
         />
         <Route
           path="/login"
@@ -68,6 +74,7 @@ function App() {
           }
         />
         <Route path="/" element={<MainPage />}></Route>
+        <Route path="/feed" element={<FeedPage />} />
         <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
         <Route path="*" element={<></>} />
       </Routes>

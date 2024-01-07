@@ -48,17 +48,28 @@ function AppHeader() {
       </section>
       <section className={styles.header__item + " mt-4 mb-4"}>
         <div className={styles.header__button + " ml-5 mr-5"}>
-          <ListIcon type="secondary" />
-          <a
-            className={
-              "text text_type_main-default " +
-              styles.secondary_text +
-              " " +
-              styles.link
-            }
-          >
-            Лента заказов
-          </a>
+        <NavLink to="/feed">
+          {({ isActive }) => (
+            <div className={styles.header__button + " ml-5 mr-5"}>
+              <ProfileIcon type={isActive ? "primary" : "secondary"} />
+              <p
+                className={
+                  isActive
+                    ? "text text_type_main-default " +
+                      styles.primary_text +
+                      " " +
+                      styles.link
+                    : "text text_type_main-default " +
+                      styles.secondary_text +
+                      " " +
+                      styles.link
+                }
+              >
+                Лента заказов
+              </p>
+            </div>
+          )}
+        </NavLink>
         </div>
       </section>
       <section className={styles.header__item + " mt-4 mb-4"}>
