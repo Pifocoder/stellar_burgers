@@ -15,3 +15,12 @@ type IngredientType = {
   _id: string;
 };
 export default IngredientType;
+
+export type OrderType = {
+  ingredients: Array<string>;
+  _id: string;
+  status: "created" | "pending" | "done";
+  number: 1;
+  createdAt: Date;
+  updatedAt: Date;
+};

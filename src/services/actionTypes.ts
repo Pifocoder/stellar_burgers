@@ -129,3 +129,54 @@ export const POST_STARTED = "POST_STARTED";
 export interface ActionPostStarted {
   type: typeof POST_STARTED;
 }
+
+
+export const WS_CONNECTION_START = 'WS_CONNECTION_START';
+export const WS_CONNECTION_SUCCESS = 'WS_CONNECTION_SUCCESS';
+export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR';
+export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED';
+export const WS_GET_All_ORDERS = 'WS_GET_All_ORDERS';
+export const WS_GET_USER_ORDERS = 'WS_GET_USER_ORDERS';
+
+
+export const wsConnectionSuccess = () => {
+  return {
+    type: WS_CONNECTION_SUCCESS
+  };
+};
+
+export const wsConnectionError = () => {
+  return {
+    type: WS_CONNECTION_ERROR
+  };
+};
+
+export const wsConnectionClosed = () => {
+  return {
+    type: WS_CONNECTION_CLOSED
+  };
+};
+
+export const wsGetAllOrders = (message : string) => {
+  return {
+    type: WS_GET_All_ORDERS,
+    payload: message
+  };
+};
+
+export const wsGetUserOrders =  (message : string) => {
+  return {
+    type: WS_GET_USER_ORDERS,
+    payload: message
+  };
+};
+
+export const wsActions = {
+  wsInit: WS_CONNECTION_START,
+  wsGetAllOrders : WS_GET_All_ORDERS,
+  wsGetUserOrders: WS_GET_USER_ORDERS,
+
+  onOpen: WS_CONNECTION_SUCCESS,
+  onClose: WS_CONNECTION_CLOSED,
+  onError: WS_CONNECTION_ERROR,
+};

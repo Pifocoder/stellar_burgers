@@ -4,9 +4,9 @@
 .body__content {
   margin: 0px auto;
   margin-top: 130px;
-  width: 65%;
+  width: 80%;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 60px;
   justify-content: center;
   justify-items: center;
@@ -37,6 +37,7 @@
   justify-content: end;
 }
 .feed__orders {
+    grid-column: 2/4;
     width: 100%;
   display: grid;
   grid-template-columns: auto;
